@@ -8,7 +8,7 @@
 import UIKit
 
 struct JSONParser {
-    mutating func parse() -> DailyBoxOffice? {
+    func parse() -> DailyBoxOffice? {
         let decoder = JSONDecoder()
         
         guard let jsonData = NSDataAsset(name: "box_office_sample") else { return nil }
