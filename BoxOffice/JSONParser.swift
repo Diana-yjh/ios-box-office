@@ -7,16 +7,14 @@
 
 import UIKit
 
-func parse() {
-    let decoder = JSONDecoder()
-    
-    guard let jsonData = NSDataAsset(name: "box_office_sample") else {
-        return
+struct JSONParser {
+    mutating func parse() -> DailyBoxOffice? {
+        let decoder = JSONDecoder()
+        
+        guard let jsonData = NSDataAsset(name: "box_office_sample") else { return nil }
+        
+        guard let decodedData = try? decoder.decode(DailyBoxOffice.self, from: jsonData.data) else { return nil }
+        
+        return decodedData
     }
-    
-    guard let decodedData = try? decoder.decode(DailyBoxOffice.self, from: jsonData.data) else {
-        return
-    }
-    
-    print(decodedData)
 }
