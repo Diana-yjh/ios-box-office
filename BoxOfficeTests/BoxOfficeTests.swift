@@ -22,7 +22,7 @@ final class BoxOfficeTests: XCTestCase {
     }
     
     func test_JSONParser가_정상적으로작동하는지_확인할수있다() {
-        let result = sut.decode("box_office_sample", type: DailyBoxOffice)
+        let result = sut.decode("box_office_sample", type: DailyBoxOffice.self)
         
         print("Parsed Data: ", result)
         

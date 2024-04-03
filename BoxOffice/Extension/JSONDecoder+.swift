@@ -8,11 +8,11 @@
 import UIKit
 
 extension JSONDecoder {
-    func decode<T: Decodable>(_ fileName: String, type: T) -> T? {
+    func decode<T: Decodable>(_ fileName: String, type: T.Type) -> T? {
         let decoder = JSONDecoder()
         
         guard let jsonData = NSDataAsset(name: fileName) else { return nil }
-        guard let decodedData = try? decoder.decode(T.self, from: jsonData.data) else { return nil }
+        guard let decodedData = try? decoder.decode(type, from: jsonData.data) else { return nil }
         
         return decodedData
     }
