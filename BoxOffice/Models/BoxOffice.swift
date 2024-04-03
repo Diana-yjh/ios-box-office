@@ -5,23 +5,27 @@
 //  Created by Danny, Diana, gama on 4/2/24.
 //
 
-struct DailyBoxOffice: Codable {
-    let boxOfficeResult: BoxOfficeResult
+struct BoxOffice: Codable {
+    let boxOfficeResults: BoxOfficeResults
+    
+    enum CodingKeys: String, CodingKey {
+        case boxOfficeResults = "boxOfficeResult"
+    }
 }
 
-struct BoxOfficeResult: Codable {
+struct BoxOfficeResults: Codable {
     let boxOfficeType: String
     let showRange: String
-    let dailyBoxOfficeList: [DailyBoxOfficeList]
+    let boxOffices: [BoxOfficeInformation]
     
     enum CodingKeys: String, CodingKey {
         case boxOfficeType = "boxofficeType"
         case showRange
-        case dailyBoxOfficeList
+        case boxOffices = "dailyBoxOfficeList"
     }
 }
 
-struct DailyBoxOfficeList: Codable {
+struct BoxOfficeInformation: Codable {
     let squenceNumber: String
     let rank: String
     let rankIntensity: String

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0691FB852BBBCB8400382C7A /* JSONDecoder+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0691FB842BBBCB8400382C7A /* JSONDecoder+.swift */; };
-		2E9AF6442BBBC7D70070DCCA /* DailyBoxOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AF6432BBBC7D70070DCCA /* DailyBoxOffice.swift */; };
+		2E9AF6442BBBC7D70070DCCA /* BoxOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AF6432BBBC7D70070DCCA /* BoxOffice.swift */; };
 		63DF20EF2970E1A0005DF7D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF20EE2970E1A0005DF7D1 /* AppDelegate.swift */; };
 		63DF20F12970E1A0005DF7D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF20F02970E1A0005DF7D1 /* SceneDelegate.swift */; };
 		63DF20F32970E1A0005DF7D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF20F22970E1A0005DF7D1 /* ViewController.swift */; };
@@ -30,7 +30,7 @@
 
 /* Begin PBXFileReference section */
 		0691FB842BBBCB8400382C7A /* JSONDecoder+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "JSONDecoder+.swift"; path = "BoxOffice/Extension/JSONDecoder+.swift"; sourceTree = SOURCE_ROOT; };
-		2E9AF6432BBBC7D70070DCCA /* DailyBoxOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DailyBoxOffice.swift; path = BoxOffice/Models/DailyBoxOffice.swift; sourceTree = SOURCE_ROOT; };
+		2E9AF6432BBBC7D70070DCCA /* BoxOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoxOffice.swift; path = BoxOffice/Models/BoxOffice.swift; sourceTree = SOURCE_ROOT; };
 		63DF20EB2970E1A0005DF7D1 /* BoxOffice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoxOffice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DF20EE2970E1A0005DF7D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63DF20F02970E1A0005DF7D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		2E9AF6582BBD33980070DCCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2E9AF6432BBBC7D70070DCCA /* DailyBoxOffice.swift */,
+				2E9AF6432BBBC7D70070DCCA /* BoxOffice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -256,7 +256,7 @@
 				0691FB852BBBCB8400382C7A /* JSONDecoder+.swift in Sources */,
 				63DF20EF2970E1A0005DF7D1 /* AppDelegate.swift in Sources */,
 				63DF20F12970E1A0005DF7D1 /* SceneDelegate.swift in Sources */,
-				2E9AF6442BBBC7D70070DCCA /* DailyBoxOffice.swift in Sources */,
+				2E9AF6442BBBC7D70070DCCA /* BoxOffice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

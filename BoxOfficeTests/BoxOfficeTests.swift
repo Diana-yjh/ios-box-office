@@ -22,14 +22,14 @@ final class BoxOfficeTests: XCTestCase {
     }
     
     func test_JSONParser가_정상적으로작동하는지_확인할수있다() {
-        let result = sut.decode("box_office_sample", type: DailyBoxOffice.self)
+        let result = sut.decode("box_office_sample", type: BoxOffice.self)
         
         XCTAssertFalse(result == nil)
     }
     
     func test_JSON파일명이_올바르지_않은지_확인하기() {
         // When
-        let result = sut.decode("box_office_sample_test", type: DailyBoxOffice.self)
+        let result = sut.decode("box_office_sample_test", type: BoxOffice.self)
         
         // Then
         XCTAssertTrue(result == nil)
