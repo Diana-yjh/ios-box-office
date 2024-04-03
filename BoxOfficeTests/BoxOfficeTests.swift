@@ -9,11 +9,11 @@ import XCTest
 @testable import BoxOffice
 
 final class BoxOfficeTests: XCTestCase {
-    private var sut: JSONParser!
+    private var sut: JSONDecoder!
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        sut = JSONParser()
+        sut = JSONDecoder()
     }
 
     override func tearDownWithError() throws {
@@ -22,7 +22,7 @@ final class BoxOfficeTests: XCTestCase {
     }
     
     func test_JSONParser가_정상적으로작동하는지_확인할수있다() {
-        let result = sut.parse()
+        let result = sut.decode("box_office_sample", type: DailyBoxOffice)
         
         print("Parsed Data: ", result)
         
