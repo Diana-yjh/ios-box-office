@@ -11,9 +11,33 @@ extension JSONDecoder {
     func decode<T: Decodable>(_ fileName: String, type: T.Type) -> T? {
         let decoder = JSONDecoder()
         
-        guard let jsonData = NSDataAsset(name: fileName) else { return nil }
-        guard let decodedData = try? decoder.decode(type, from: jsonData.data) else { return nil }
+        guard let jsonData = NSDataAsset(name: fileName) else { 
+            print("This is fileNameError")
+            return nil
+        }
         
-        return decodedData
+        do {
+            let decodedData = try decoder.decode(type, from: jsonData.data)
+            return decodedData
+        } catch let error {
+            guard let error = error as? DecodingError else {
+                print("This is UnKnown Error")
+                return nil
+            }
+            
+            switch error {
+            case .dataCorrupted(let context):
+                print("dataCorrupted:", context)
+            case .keyNotFound(_, let context):
+                print("keyNotFound:", context)
+            case .typeMismatch(let typeName, let context):
+                print("typeMismatch:", context)
+            case .valueNotFound(let typeName, let context):
+                print("valueNotFound:", context)
+            default:
+                print("This is an Unknown Error")
+            }
+        }
+        return nil
     }
 }

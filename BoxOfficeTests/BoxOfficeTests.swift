@@ -28,4 +28,12 @@ final class BoxOfficeTests: XCTestCase {
         
         XCTAssertFalse(result == nil)
     }
+    
+    func test_JSON파일명이_올바르지_않은지_확인하기() {
+        // When
+        let result = sut.decode("box_office_sample_test", type: DailyBoxOffice.self)
+        
+        // Then
+        XCTAssertTrue(result == nil)
+    }
 }
