@@ -16,6 +16,7 @@
 		63DF20F62970E1A0005DF7D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DF20F42970E1A0005DF7D1 /* Main.storyboard */; };
 		63DF20F82970E1A1005DF7D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DF20F72970E1A1005DF7D1 /* Assets.xcassets */; };
 		63DF20FB2970E1A1005DF7D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DF20F92970E1A1005DF7D1 /* LaunchScreen.storyboard */; };
+		8BAD2F852BBFDA1600504D37 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAD2F842BBFDA1600504D37 /* DateFormatter+.swift */; };
 		8BFFF6EA2BBBCF580036AD83 /* BoxOfficeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFF6E92BBBCF580036AD83 /* BoxOfficeTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		63DF20F72970E1A1005DF7D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63DF20FA2970E1A1005DF7D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63DF20FC2970E1A1005DF7D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BAD2F842BBFDA1600504D37 /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		8BFFF6E72BBBCF580036AD83 /* BoxOfficeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxOfficeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BFFF6E92BBBCF580036AD83 /* BoxOfficeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				0691FB842BBBCB8400382C7A /* JSONDecoder+.swift */,
+				8BAD2F842BBFDA1600504D37 /* DateFormatter+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				63DF20F32970E1A0005DF7D1 /* ViewController.swift in Sources */,
 				0691FB852BBBCB8400382C7A /* JSONDecoder+.swift in Sources */,
 				63DF20EF2970E1A0005DF7D1 /* AppDelegate.swift in Sources */,
+				8BAD2F852BBFDA1600504D37 /* DateFormatter+.swift in Sources */,
 				63DF20F12970E1A0005DF7D1 /* SceneDelegate.swift in Sources */,
 				2E9AF6602BBED0190070DCCA /* NetworkService.swift in Sources */,
 				2E9AF6442BBBC7D70070DCCA /* BoxOffice.swift in Sources */,
