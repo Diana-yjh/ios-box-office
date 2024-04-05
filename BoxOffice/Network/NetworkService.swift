@@ -35,9 +35,3 @@ class NetworkService {
         task.resume()
     }
 }
-
-extension Bundle {
-    var apiKey: String? {
-        return infoDictionary?["API_KEY"] as? String
-    }
-}
