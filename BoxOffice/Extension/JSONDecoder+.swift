@@ -1,5 +1,5 @@
 //
-//  JSONParser.swift
+//  JSONDecoder.swift
 //  BoxOffice
 //
 //  Created by Danny, Diana, gama on 4/2/24.
@@ -8,16 +8,11 @@
 import UIKit
 
 extension JSONDecoder {
-    func decode<T: Decodable>(_ fileName: String, type: T.Type) -> T? {
+    func decode<T: Decodable>(_ data: Data, type: T.Type) -> T? {
         let decoder = JSONDecoder()
         
-        guard let jsonData = NSDataAsset(name: fileName) else { 
-            print("This is fileNameError")
-            return nil
-        }
-        
         do {
-            let decodedData = try decoder.decode(type, from: jsonData.data)
+            let decodedData = try decoder.decode(type, from: data)
             return decodedData
         } catch let error {
             guard let error = error as? DecodingError else {

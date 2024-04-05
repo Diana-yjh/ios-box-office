@@ -10,8 +10,7 @@ import Foundation
 class NetworkService {
     func startLoad() {
         guard let apiKey = Bundle.main.apiKey else {
-            print("API KEY 값을 로드하지 못했습니다.")
-            return
+            fatalError("API KEY 값을 로드하지 못했습니다.")
         }
         
         let urltoString = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=\(apiKey)&targetDt=20240101"
@@ -22,26 +21,26 @@ class NetworkService {
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print(error)
+                fatalError("Error: \(error)")
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             
-            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                print(response)
-                return
+            guard (200...299).contains(httpResponse.statusCode) else {
+                fatalError("Response Statuscode: \(httpResponse.statusCode)")
             }
             
             guard let safeData = data else {
                 return
             }
             
-            do {
-                let decoder = JSONDecoder()
-                let movieData = try decoder.decode(BoxOffice.self, from: safeData)
-                print(movieData)
-            } catch {
-                print(error)
+            guard let movieData = JSONDecoder().decode(safeData, type: BoxOffice.self) else {
+                return
             }
+            
+            print(movieData)
         }
         task.resume()
     }
