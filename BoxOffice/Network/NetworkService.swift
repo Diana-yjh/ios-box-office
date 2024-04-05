@@ -8,17 +8,7 @@
 import Foundation
 
 class NetworkService {
-    func startLoad() {
-        guard let apiKey = Bundle.main.apiKey else {
-            fatalError("API KEY 값을 로드하지 못했습니다.")
-        }
-        
-        let urltoString = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=\(apiKey)&targetDt=20240101"
-        
-        guard let url = URL(string: urltoString) else {
-            return
-        }
-        
+    func startLoad<T: Decodable>(url: URL, type: T.Type) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 fatalError("Error: \(error)")
@@ -36,7 +26,7 @@ class NetworkService {
                 return
             }
             
-            guard let movieData = JSONDecoder().decode(safeData, type: BoxOffice.self) else {
+            guard let movieData = JSONDecoder().decode(safeData, type: type.self) else {
                 return
             }
             
