@@ -7,11 +7,20 @@
 
 struct MovieInformationDTO: Codable {
     let movieInformationResult: MovieInformationResult
+    
+    enum CodingKeys: String, CodingKey {
+        case movieInformationResult = "movieInfoResult"
+    }
 }
 
 struct MovieInformationResult: Codable {
     let movieInformation: MovieInformation
     let source: String
+    
+    enum CodingKeys: String, CodingKey {
+        case movieInformation = "movieInfo"
+        case source
+    }
 }
 
 struct MovieInformation: Codable {
@@ -32,7 +41,6 @@ struct MovieInformation: Codable {
     let companys: [Company]
     let audits: [Audit]
     let staffs: [Staff]
-    let sources: String
     
     enum CodingKeys: String, CodingKey {
         case movieCode = "movieCd"
@@ -52,7 +60,6 @@ struct MovieInformation: Codable {
         case companys
         case audits
         case staffs
-        case sources
     }
 }
 

@@ -13,5 +13,5 @@ struct URLs {
     static let PREFIX = "https://kobis.or.kr/kobisopenapi/webservice/rest/"
     
     static let DAILY_BOX_OFFICE = "boxoffice/searchDailyBoxOfficeList.json?key=\(apiKey)&targetDt="
-    static let MOVIE_DETAIL = "movie/searchMovieInfo.xml?key=\(apiKey)&movieCd="
+    static let MOVIE_DETAIL = "movie/searchMovieInfo.json?key=\(apiKey)&movieCd="
 }

@@ -25,9 +25,9 @@ extension JSONDecoder {
                 print("dataCorrupted:", context)
             case .keyNotFound(_, let context):
                 print("keyNotFound:", context)
-            case .typeMismatch(let typeName, let context):
+            case .typeMismatch(_, let context):
                 print("typeMismatch:", context)
-            case .valueNotFound(let typeName, let context):
+            case .valueNotFound(_, let context):
                 print("valueNotFound:", context)
             default:
                 print("This is an Unknown Error")
