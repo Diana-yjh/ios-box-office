@@ -8,31 +8,30 @@
 import UIKit
 
 extension JSONDecoder {
-    func decode<T: Decodable>(_ data: Data, type: T.Type) -> T? {
+    func decode<T: Decodable>(_ data: Data, type: T.Type) -> Result<T, CustomError> {
         let decoder = JSONDecoder()
-        
+
         do {
             let decodedData = try decoder.decode(type, from: data)
-            return decodedData
+            return .success(decodedData)
         } catch let error {
-            guard let error = error as? DecodingError else {
+            guard let decodingError = error as? DecodingError else {
                 print("This is UnKnown Error")
-                return nil
+                return .failure(.unknowned)
             }
-            
-            switch error {
-            case .dataCorrupted(let context):
-                print("dataCorrupted:", context)
-            case .keyNotFound(_, let context):
-                print("keyNotFound:", context)
-            case .typeMismatch(_, let context):
-                print("typeMismatch:", context)
-            case .valueNotFound(_, let context):
-                print("valueNotFound:", context)
+
+            switch decodingError {
+            case .dataCorrupted(_):
+                return .failure(.dataCorrupted)
+            case .keyNotFound(_, _):
+                return .failure(.keyNotFound)
+            case .typeMismatch(_, _):
+                return .failure(.typeMismatched)
+            case .valueNotFound(_, _):
+                return .failure(.valueNotFound)
             default:
-                print("This is an Unknown Error")
+                return .failure(.unknowned)
             }
         }
-        return nil
     }
 }

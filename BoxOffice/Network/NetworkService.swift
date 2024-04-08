@@ -8,30 +8,33 @@
 import Foundation
 
 class NetworkService {
-    func startLoad<T: Decodable>(url: URL, type: T.Type) {
+    func startLoad<T: Decodable>(url: URL, type: T.Type, completion: @escaping (_ result: Result<T, CustomError>) -> ()) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                fatalError("Error: \(error)")
+            guard let error = error else {
+                completion(.failure(.networkError))
+                return
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.httpResponseError))
                 return
             }
             
             guard (200...299).contains(httpResponse.statusCode) else {
-                fatalError("Response Statuscode: \(httpResponse.statusCode)")
+                completion(.failure(.statusCodeError(httpResponse.statusCode)))
+                return
             }
             
             guard let safeData = data else {
+                completion(.failure(.emptyData))
                 return
             }
             
-            guard let movieData = JSONDecoder().decode(safeData, type: type.self) else {
-                return
-            }
+            let decodeResult: Result = JSONDecoder().decode(safeData, type: type.self)
             
-            print(movieData)
+            completion(decodeResult)
         }
+        
         task.resume()
     }
 }
