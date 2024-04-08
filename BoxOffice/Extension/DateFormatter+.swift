@@ -8,8 +8,14 @@
 import Foundation
 
 extension DateFormatter {
-    func fetchTodayDate() -> String {
-        self.dateFormat = "yyyyMMdd"
-        return self.string(from: Date())
+    static let customDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter
+    }()
+    
+    static func fetchTodayDate() -> String {
+        self.customDateFormatter.dateFormat = "yyyyMMdd"
+        return self.customDateFormatter.string(from: Date())
     }
 }
