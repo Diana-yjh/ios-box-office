@@ -5,7 +5,7 @@
 //  Created by Danny, Diana, gama on 4/2/24.
 //
 
-struct BoxOfficeDTO: Codable {
+struct BoxOffice: Codable {
     let boxOfficeResults: BoxOfficeResults
     
     enum CodingKeys: String, CodingKey {

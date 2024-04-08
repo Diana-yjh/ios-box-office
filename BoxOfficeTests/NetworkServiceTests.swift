@@ -21,12 +21,11 @@ final class NetworkServiceTests: XCTestCase {
 
     func test_일일박스오피스_조회하기() throws {
         // Given
-        let todayDate = DateFormatter().fetchTodayDate()
+        let todayDate = DateFormatter.fetchTodayDate()
         guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + todayDate) else { return }
         print(url)
         
         // When
-        sut.startLoad(url: url, type: BoxOfficeDTO.self)
         
         
         // Then

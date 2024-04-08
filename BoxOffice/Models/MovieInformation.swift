@@ -5,7 +5,7 @@
 //  Created by Danny, Diana, gama on 4/5/24.
 //
 
-struct MovieInformationDTO: Codable {
+struct MovieInformation: Codable {
     let movieInformationResult: MovieInformationResult
     
     enum CodingKeys: String, CodingKey {
@@ -14,7 +14,7 @@ struct MovieInformationDTO: Codable {
 }
 
 struct MovieInformationResult: Codable {
-    let movieInformation: MovieInformation
+    let movieInformation: MovieInformationDetail
     let source: String
     
     enum CodingKeys: String, CodingKey {
@@ -23,7 +23,7 @@ struct MovieInformationResult: Codable {
     }
 }
 
-struct MovieInformation: Codable {
+struct MovieInformationDetail: Codable {
     let movieCode: String?
     let movieName: String?
     let movieEnglishName: String?

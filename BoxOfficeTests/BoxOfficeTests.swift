@@ -25,7 +25,7 @@ final class BoxOfficeTests: XCTestCase {
         guard let asset = NSDataAsset(name: "box_office_sample") else { return }
         
         do {
-            let result = try sut.decode(BoxOfficeDTO.self, from: asset.data)
+            let result = try sut.decode(BoxOffice.self, from: asset.data)
             print(result)
         } catch {
             
