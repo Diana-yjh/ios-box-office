@@ -9,6 +9,11 @@ import Foundation
 
 extension Bundle {
     var apiKey: String? {
-        return infoDictionary?["API_KEY"] as? String
+        let key = infoDictionary?["API_KEY"] as? String
+        if infoDictionary?["API_KEY"] as? String == "" {
+            fatalError("API_KEY 값을 입력해주세요.")
+        } else {
+            return key
+        }
     }
 }
