@@ -14,9 +14,9 @@ struct BoxOfficeDTO: Codable {
 }
 
 struct BoxOfficeResults: Codable {
-    let boxOfficeType: String
-    let showRange: String
-    let boxOffices: [BoxOfficeInformation]
+    let boxOfficeType: String?
+    let showRange: String?
+    let boxOffices: [BoxOfficeInformation]?
     
     enum CodingKeys: String, CodingKey {
         case boxOfficeType = "boxofficeType"
@@ -26,24 +26,24 @@ struct BoxOfficeResults: Codable {
 }
 
 struct BoxOfficeInformation: Codable {
-    let squenceNumber: String
-    let rank: String
-    let rankIntensity: String
-    let rankOldAndNew: String
-    let movieRepresentCode: String
-    let movieName: String
-    let openDate: String
-    let salesAmount: String
-    let salesShare: String
-    let salesIntensity: String
-    let salesChange: String
-    let salesAccumulation: String
-    let audienceCount: String
-    let audienceIntensity: String
-    let audienceChange: String
-    let audienceAccumulation: String
-    let screenCount: String
-    let showCount: String
+    let squenceNumber: String?
+    let rank: String?
+    let rankIntensity: String?
+    let rankOldAndNew: String?
+    let movieRepresentCode: String?
+    let movieName: String?
+    let openDate: String?
+    let salesAmount: String?
+    let salesShare: String?
+    let salesIntensity: String?
+    let salesChange: String?
+    let salesAccumulation: String?
+    let audienceCount: String?
+    let audienceIntensity: String?
+    let audienceChange: String?
+    let audienceAccumulation: String?
+    let screenCount: String?
+    let showCount: String?
     
     enum CodingKeys: String, CodingKey {
         case squenceNumber = "rnum"

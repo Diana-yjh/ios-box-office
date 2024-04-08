@@ -24,23 +24,23 @@ struct MovieInformationResult: Codable {
 }
 
 struct MovieInformation: Codable {
-    let movieCode: String
-    let movieName: String
-    let movieEnglishName: String
-    let movieOriginalName: String
-    let productYear: String
-    let showTime: String
-    let openDate: String
-    let productStateName: String
-    let typeName: String
-    let nations: [Nation]
-    let genres: [Genre]
-    let directors: [Director]
-    let actors: [Actor]
-    let showTypes: [ShowType]
-    let companys: [Company]
-    let audits: [Audit]
-    let staffs: [Staff]
+    let movieCode: String?
+    let movieName: String?
+    let movieEnglishName: String?
+    let movieOriginalName: String?
+    let productYear: String?
+    let showTime: String?
+    let openDate: String?
+    let productStateName: String?
+    let typeName: String?
+    let nations: [Nation]?
+    let genres: [Genre]?
+    let directors: [Director]?
+    let actors: [Actor]?
+    let showTypes: [ShowType]?
+    let companys: [Company]?
+    let audits: [Audit]?
+    let staffs: [Staff]?
     
     enum CodingKeys: String, CodingKey {
         case movieCode = "movieCd"
