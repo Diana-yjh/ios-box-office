@@ -90,6 +90,7 @@
 			children = (
 				2E9AF65F2BBED0190070DCCA /* NetworkService.swift */,
 				8BAD2F8B2BBFEAA900504D37 /* URLs.swift */,
+				8BCFAC692BC433B200580129 /* CustomError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -116,7 +117,6 @@
 		63DF20ED2970E1A0005DF7D1 /* BoxOffice */ = {
 			isa = PBXGroup;
 			children = (
-				8BCFAC692BC433B200580129 /* CustomError.swift */,
 				2E9AF65E2BBED0070070DCCA /* Network */,
 				2E9AF6582BBD33980070DCCA /* Models */,
 				8BFFF6DD2BBB9A590036AD83 /* Views */,

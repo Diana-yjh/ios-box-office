@@ -9,10 +9,8 @@ import UIKit
 
 extension JSONDecoder {
     func decode<T: Decodable>(_ data: Data, type: T.Type) -> Result<T, CustomError> {
-        let decoder = JSONDecoder()
-
         do {
-            let decodedData = try decoder.decode(type, from: data)
+            let decodedData = try self.decode(type, from: data)
             return .success(decodedData)
         } catch let error {
             guard let decodingError = error as? DecodingError else {
