@@ -11,6 +11,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = DateFormatter.fetchTodayDate(dateFormatType: .navigationTitle)
+        self.navigationItem.title = DateFormatter.fetchYesterdayDate(dateFormatType: .navigationTitle)
     }
 }

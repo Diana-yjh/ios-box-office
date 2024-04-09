@@ -19,8 +19,9 @@ extension DateFormatter {
         return formatter
     }()
     
-    static func fetchTodayDate(dateFormatType: DateFormatType) -> String {
+    static func fetchYesterdayDate(dateFormatType: DateFormatType) -> String {
         self.customDateFormatter.dateFormat = dateFormatType.rawValue
-        return self.customDateFormatter.string(from: Date())
+        let yesterdayDate = Date() - 86400
+        return self.customDateFormatter.string(from: yesterdayDate)
     }
 }
