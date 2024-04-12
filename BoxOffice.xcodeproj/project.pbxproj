@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0691FB852BBBCB8400382C7A /* JSONDecoder+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0691FB842BBBCB8400382C7A /* JSONDecoder+.swift */; };
+		2E8B10442BC9239E006BF024 /* BoxOfficeUML.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8B10432BC9239E006BF024 /* BoxOfficeUML.png */; };
 		2E9AF6442BBBC7D70070DCCA /* BoxOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AF6432BBBC7D70070DCCA /* BoxOffice.swift */; };
 		2E9AF6602BBED0190070DCCA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AF65F2BBED0190070DCCA /* NetworkService.swift */; };
 		2E9AF6852BBFE0290070DCCA /* MovieInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AF6842BBFE0290070DCCA /* MovieInformation.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		0691FB842BBBCB8400382C7A /* JSONDecoder+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "JSONDecoder+.swift"; path = "BoxOffice/Extension/JSONDecoder+.swift"; sourceTree = SOURCE_ROOT; };
+		2E8B10432BC9239E006BF024 /* BoxOfficeUML.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BoxOfficeUML.png; sourceTree = "<group>"; };
 		2E9AF6432BBBC7D70070DCCA /* BoxOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoxOffice.swift; path = BoxOffice/Models/BoxOffice.swift; sourceTree = SOURCE_ROOT; };
 		2E9AF65F2BBED0190070DCCA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		2E9AF6832BBFB48D0070DCCA /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		8BFFF6E02BBB9A850036AD83 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2E8B10432BC9239E006BF024 /* BoxOfficeUML.png */,
 				63DF20F72970E1A1005DF7D1 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -262,6 +265,7 @@
 			files = (
 				63DF20FB2970E1A1005DF7D1 /* LaunchScreen.storyboard in Resources */,
 				63DF20F82970E1A1005DF7D1 /* Assets.xcassets in Resources */,
+				2E8B10442BC9239E006BF024 /* BoxOfficeUML.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
