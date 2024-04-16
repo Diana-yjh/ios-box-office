@@ -10,8 +10,24 @@ import UIKit
 class BoxOfficeCell: UICollectionViewListCell {
     static let reuseIdentifier = "boxOfficeCell"
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        print("BoxOfficeCell init Error")
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        rankNumberLabel.text = ""
+        rankChangeLabel.text = ""
+        movieTitleLabel.text = ""
+        audienceLabel.text = ""
         
         rankChangeLabel.textColor = .black
     }
@@ -88,17 +104,6 @@ class BoxOfficeCell: UICollectionViewListCell {
         
         return label
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        configure()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-    }
     
     override func updateConstraints() {
       super.updateConstraints()
