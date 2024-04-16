@@ -33,7 +33,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = calendarButton
-        
+        self.configureCollectionView()
+        self.configureDataSource()
         configureUI()
     }
     
@@ -41,8 +42,6 @@ class ViewController: UIViewController {
         getBoxOfficeData {
             DispatchQueue.main.async {
                 self.updateNavigationBar()
-                self.configureCollectionView()
-                self.configureDataSource()
                 self.setSnapshot()
             }
         }
@@ -55,7 +54,6 @@ class ViewController: UIViewController {
     }
     
     func getBoxOfficeData(completion: @escaping() -> ()) {
-        //        guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api)) else { return }
         guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api, dateComponents: self.selectedDateComponents)) else { return }
         NetworkService().startLoad(url: url, type: BoxOffice.self) { result in
             switch result {
