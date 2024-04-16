@@ -36,14 +36,20 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
     }
     
     func configureCalendarView() {
-        let gregorianCalendar = Calendar(identifier: .gregorian)
-        
         calendarView = UICalendarView()
-        calendarView.calendar = gregorianCalendar
+        calendarView.calendar = Calendar(identifier: .gregorian)
         calendarView.locale = Locale(identifier: "ko_KR")
         
-        let dateSelection = UICalendarSelectionSingleDate(delegate: self)
-        calendarView.selectionBehavior = dateSelection
+        let selectionDelegate = UICalendarSelectionSingleDate(delegate: self)
+        calendarView.selectionBehavior = selectionDelegate
+        
+        if let safeDateComponents = self.selectedDateComponents {
+            selectionDelegate.setSelected(safeDateComponents, animated: true)
+        }
+        
+        if let startDate = Calendar(identifier: .gregorian).date(from: DateComponents(year: 2000, month: 1, day: 1)) {
+            calendarView.availableDateRange = DateInterval(start: startDate, end: Date() - 86400)
+        }
     }
     
     func setUI() {
