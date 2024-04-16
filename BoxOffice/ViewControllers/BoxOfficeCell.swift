@@ -94,6 +94,12 @@ class BoxOfficeCell: UICollectionViewListCell {
         
     }
     
+    override func updateConstraints() {
+      super.updateConstraints()
+
+      separatorLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
+    }
+    
     func configure() {
         contentView.addSubview(cellStackView)
         [leftStackView, rightStackView].forEach {
