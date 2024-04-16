@@ -12,10 +12,15 @@ class ViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>!
     private var boxOfficeData: [BoxOfficeInformation] = []
     
+    lazy var calenderButton: UIBarButtonItem = {
+        return UIBarButtonItem(title: "날짜선택", style: .plain, target: self, action: #selector(selectCalenderDate))
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = DateFormatter.fetchYesterdayDate(dateFormatType: .navigationTitle)
+        self.navigationItem.rightBarButtonItem = calenderButton
         
         getBoxOfficeData {
             DispatchQueue.main.async {
@@ -51,6 +56,10 @@ class ViewController: UIViewController {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         
         return UICollectionViewCompositionalLayout.list(using: configuration)
+    }
+    
+    @objc func selectCalenderDate(sender: AnyObject) {
+        print("날짜선택 버튼")
     }
     
     func configureRefreshControl() {
