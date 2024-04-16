@@ -44,12 +44,26 @@ class ViewController: UIViewController {
         self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.createCollectionViewLayout())
         self.collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.reuseIdentifier)
         self.view.addSubview(self.collectionView)
+        configureRefreshControl()
     }
     
     func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         
         return UICollectionViewCompositionalLayout.list(using: configuration)
+    }
+    
+    func configureRefreshControl() {
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+        
+    @objc func handleRefreshControl() {
+        setSnapshot()
+        
+        DispatchQueue.main.async {
+            self.collectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 
