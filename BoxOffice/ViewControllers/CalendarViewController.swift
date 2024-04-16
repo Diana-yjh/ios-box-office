@@ -7,7 +7,17 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController {
+class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDelegate {
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        print("컬렉션 뷰 업데이트 필요함")
+        
+        guard let year = dateComponents?.year, let month = dateComponents?.month, let day = dateComponents?.day else { return }
+        
+        self.dismiss(animated: true) {
+            let selectDateAPI = "\(year)\(month)\(day)"
+        }
+    }
+    
     var calendarView = UICalendarView()
     
     override func viewDidLoad() {
@@ -23,6 +33,9 @@ class CalendarViewController: UIViewController {
         calendarView = UICalendarView()
         calendarView.calendar = gregorianCalendar
         calendarView.locale = Locale(identifier: "ko_KR")
+        
+        let dateSelection = UICalendarSelectionSingleDate(delegate: self)
+        calendarView.selectionBehavior = dateSelection
     }
     
     func setUI() {

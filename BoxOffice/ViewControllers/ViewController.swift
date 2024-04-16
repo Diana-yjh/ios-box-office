@@ -13,7 +13,12 @@ class ViewController: UIViewController {
     private var boxOfficeData: [BoxOfficeInformation] = []
     
     lazy var calendarButton: UIBarButtonItem = {
-        return UIBarButtonItem(title: "날짜선택", style: .plain, target: self, action: #selector(selectCalendarDate))
+        let item = UIBarButtonItem()
+        item.title = "날짜선택"
+        item.target = self
+        item.action = #selector(selectCalendarDate)
+        item.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], for: .normal)
+        return item
     }()
     
     override func viewDidLoad() {
