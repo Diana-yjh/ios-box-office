@@ -10,6 +10,12 @@ import UIKit
 class BoxOfficeCell: UICollectionViewListCell {
     static let reuseIdentifier = "boxOfficeCell"
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        rankChangeLabel.textColor = .black
+    }
+    
     let cellStackView: UIStackView = {
         let stackView = UIStackView()
         
