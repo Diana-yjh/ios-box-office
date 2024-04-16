@@ -32,12 +32,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.title = DateFormatter.fetchYesterdayDate(dateFormatType: .navigationTitle)
         self.navigationItem.rightBarButtonItem = calendarButton
         
+        configureUI()
+    }
+    
+    func configureUI() {
         getBoxOfficeData {
             DispatchQueue.main.async {
+                self.updateNavigationBar()
                 self.configureCollectionView()
                 self.configureDataSource()
                 self.setSnapshot()
@@ -45,8 +48,15 @@ class ViewController: UIViewController {
         }
     }
     
+    func updateNavigationBar() {
+        let dateComponents = self.selectedDateComponents
+        let date = DateFormatter.fetchYesterdayDate(dateFormatType: .navigationTitle, dateComponents: dateComponents)
+        self.navigationItem.title = date
+    }
+    
     func getBoxOfficeData(completion: @escaping() -> ()) {
-        guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api)) else { return }
+        //        guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api)) else { return }
+        guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api, dateComponents: self.selectedDateComponents)) else { return }
         NetworkService().startLoad(url: url, type: BoxOffice.self) { result in
             switch result {
             case .success(let data):

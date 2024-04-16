@@ -19,9 +19,14 @@ extension DateFormatter {
         return formatter
     }()
     
-    static func fetchYesterdayDate(dateFormatType: DateFormatType) -> String {
+//    static func fetchYesterdayDate(dateFormatType: DateFormatType) -> String {
+//        self.customDateFormatter.dateFormat = dateFormatType.rawValue
+//        let yesterdayDate = Date() - 86400
+//        return self.customDateFormatter.string(from: yesterdayDate)
+//    }
+    
+    static func fetchYesterdayDate(dateFormatType: DateFormatType, dateComponents: DateComponents) -> String {
         self.customDateFormatter.dateFormat = dateFormatType.rawValue
-        let yesterdayDate = Date() - 86400
-        return self.customDateFormatter.string(from: yesterdayDate)
+        return self.customDateFormatter.string(for: Calendar.current.date(from: dateComponents)) ?? ""
     }
 }
