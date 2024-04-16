@@ -2,13 +2,14 @@
 //  ViewController.swift
 //  BoxOffice
 //
-//  Created by kjs on 13/01/23.
+//  Created by Danny, Diana, gama on 13/01/23.
 //
 
 import UIKit
 
 extension ViewController: SendDataDelegate {
     func updateDate(dateComponents: DateComponents) {
+        self.activityIndicator.startAnimating()
         self.selectedDateComponents = dateComponents
         self.configureUI()
     }
@@ -30,6 +31,21 @@ class ViewController: UIViewController {
         return item
     }()
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .medium
+        activityIndicator.color = .black
+        activityIndicator.backgroundColor = .white
+        
+        activityIndicator.startAnimating()
+        
+        return activityIndicator
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = calendarButton
@@ -43,6 +59,7 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.updateNavigationBar()
                 self.setSnapshot()
+                self.activityIndicator.stopAnimating()
             }
         }
     }
@@ -71,6 +88,7 @@ class ViewController: UIViewController {
         self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.createCollectionViewLayout())
         self.collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.reuseIdentifier)
         self.view.addSubview(self.collectionView)
+        self.view.addSubview(activityIndicator)
         configureRefreshControl()
     }
     
