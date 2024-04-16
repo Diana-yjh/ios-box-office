@@ -33,19 +33,18 @@ class BoxOfficeCell: UICollectionViewCell {
         return imageView
     }()
     
-    let rankStackView: UIStackView = {
+    let leftStackView: UIStackView = {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 2
         stackView.alignment = .center
         stackView.distribution = .fill
         
         return stackView
     }()
     
-    let informationStackView: UIStackView = {
+    let rightStackView: UIStackView = {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -70,16 +69,18 @@ class BoxOfficeCell: UICollectionViewCell {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16)
+        
         return label
     }()
     
-    let titleLabel: UILabel = {
+    let movieTitleLabel: UILabel = {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        
         return label
     }()
     
@@ -97,27 +98,25 @@ class BoxOfficeCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configure()
-        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        configure()
     }
     
     func configure() {
         contentView.addSubview(cellStackView)
-        [rankStackView, informationStackView, arrowImageView].forEach {
+        [leftStackView, rightStackView, arrowImageView].forEach {
             self.cellStackView.addArrangedSubview($0)
         }
         
         [rankNumberLabel, rankChangeLabel].forEach {
-            self.rankStackView.addArrangedSubview($0)
+            self.leftStackView.addArrangedSubview($0)
         }
         
-        [titleLabel, audienceLabel].forEach {
-            self.informationStackView.addArrangedSubview($0)
+        [movieTitleLabel, audienceLabel].forEach {
+            self.rightStackView.addArrangedSubview($0)
         }
         
         NSLayoutConstraint.activate([
@@ -126,18 +125,17 @@ class BoxOfficeCell: UICollectionViewCell {
             cellStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             cellStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            rankStackView.widthAnchor.constraint(equalTo: cellStackView.widthAnchor, multiplier: 0.2),
-            rankStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-            rankStackView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor),
-            rankStackView.trailingAnchor.constraint(equalTo: informationStackView.leadingAnchor),
+            leftStackView.widthAnchor.constraint(equalTo: cellStackView.widthAnchor, multiplier: 0.2),
+            leftStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+            leftStackView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor),
             
-            informationStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-            informationStackView.leadingAnchor.constraint(equalTo: rankStackView.trailingAnchor),
-            informationStackView.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor),
+            
+            rightStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+            rightStackView.leadingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
+            rightStackView.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor),
             
             arrowImageView.widthAnchor.constraint(equalTo: cellStackView.widthAnchor, multiplier: 0.15),
             arrowImageView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-            arrowImageView.leadingAnchor.constraint(equalTo: informationStackView.trailingAnchor),
             arrowImageView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor),
         ])
     }

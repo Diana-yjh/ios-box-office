@@ -22,6 +22,8 @@
 		8BAD2F8C2BBFEAA900504D37 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAD2F8B2BBFEAA900504D37 /* URLs.swift */; };
 		8BCFAC6A2BC433B200580129 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCFAC692BC433B200580129 /* CustomError.swift */; };
 		8BF0F7582BCD686400371B15 /* BoxOfficeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF0F7572BCD686400371B15 /* BoxOfficeCell.swift */; };
+		8BF0F75A2BCE20E000371B15 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF0F7592BCE20E000371B15 /* UILabel+.swift */; };
+		8BF0F75C2BCE218F00371B15 /* NumberFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF0F75B2BCE218F00371B15 /* NumberFormatter+.swift */; };
 		8BFFF6EA2BBBCF580036AD83 /* BoxOfficeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFF6E92BBBCF580036AD83 /* BoxOfficeTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,8 @@
 		8BAD2F8B2BBFEAA900504D37 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		8BCFAC692BC433B200580129 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		8BF0F7572BCD686400371B15 /* BoxOfficeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeCell.swift; sourceTree = "<group>"; };
+		8BF0F7592BCE20E000371B15 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		8BF0F75B2BCE218F00371B15 /* NumberFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+.swift"; sourceTree = "<group>"; };
 		8BFFF6E72BBBCF580036AD83 /* BoxOfficeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxOfficeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BFFF6E92BBBCF580036AD83 /* BoxOfficeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +139,8 @@
 				0691FB842BBBCB8400382C7A /* JSONDecoder+.swift */,
 				8BAD2F842BBFDA1600504D37 /* DateFormatter+.swift */,
 				2E9AF6862BBFEB830070DCCA /* Bundle+.swift */,
+				8BF0F7592BCE20E000371B15 /* UILabel+.swift */,
+				8BF0F75B2BCE218F00371B15 /* NumberFormatter+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -285,6 +291,8 @@
 				63DF20F32970E1A0005DF7D1 /* ViewController.swift in Sources */,
 				8BAD2F8C2BBFEAA900504D37 /* URLs.swift in Sources */,
 				0691FB852BBBCB8400382C7A /* JSONDecoder+.swift in Sources */,
+				8BF0F75C2BCE218F00371B15 /* NumberFormatter+.swift in Sources */,
+				8BF0F75A2BCE20E000371B15 /* UILabel+.swift in Sources */,
 				8BF0F7582BCD686400371B15 /* BoxOfficeCell.swift in Sources */,
 				63DF20EF2970E1A0005DF7D1 /* AppDelegate.swift in Sources */,
 				8BAD2F852BBFDA1600504D37 /* DateFormatter+.swift in Sources */,

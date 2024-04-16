@@ -10,7 +10,7 @@ import Foundation
 class NetworkService {
     func startLoad<T: Decodable>(url: URL, type: T.Type, completion: @escaping (_ result: Result<T, CustomError>) -> ()) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let error = error else {
+            if let _ = error {
                 completion(.failure(.networkError))
                 return
             }

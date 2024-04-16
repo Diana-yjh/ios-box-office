@@ -7,31 +7,37 @@
 
 import UIKit
 
-struct Temp: Hashable {//이후에 사용 or 수정
-    var movieTitle: String
-    var audience: String
-}
-
 class ViewController: UIViewController {
     private var collectionView: UICollectionView!
-    private var dataSource: UICollectionViewDiffableDataSource<Int, Temp>!
-    var tempData: [Temp] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>!
+    private var boxOfficeData: [BoxOfficeInformation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = DateFormatter.fetchYesterdayDate(dateFormatType: .navigationTitle)
         
-        tempData = [
-            Temp(movieTitle: "제목1", audience: "관객수"),
-            Temp(movieTitle: "제목2", audience: "관객수2"),
-            Temp(movieTitle: "제목3", audience: "관객수3"),
-            Temp(movieTitle: "제목4", audience: "관객수4"),
-        ]
-        
-        configureCollectionView()
-        configureDataSource()
-        setSnapshot()
+        getBoxOfficeData {
+            DispatchQueue.main.async {
+                self.configureCollectionView()
+                self.configureDataSource()
+                self.setSnapshot()
+            }
+        }
+    }
+    
+    func getBoxOfficeData(completion: @escaping() -> ()) {
+        guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api)) else { return }
+        NetworkService().startLoad(url: url, type: BoxOffice.self) { result in
+            switch result {
+            case .success(let data):
+                guard let boxOfficeData = data.boxOfficeResults.boxOffices else { return }
+                self.boxOfficeData = boxOfficeData
+                completion()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func configureCollectionView() {
@@ -42,43 +48,61 @@ class ViewController: UIViewController {
     
     func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        
         return UICollectionViewCompositionalLayout.list(using: configuration)
     }
 }
 
 extension ViewController {
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Int, Temp>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        dataSource = UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            let data = self.boxOfficeData[indexPath.row]
+            guard let movieName = data.movieName,
+                  let audienceCount = data.audienceCount,
+                  let audienceAccumulation = data.audienceAccumulation,
+                  let rankIntensity = data.rankIntensity else { return UICollectionViewCell() }
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.reuseIdentifier, for: indexPath) as? BoxOfficeCell else {
-                print("?")
-                return UICollectionViewCell()
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.reuseIdentifier, for: indexPath) as? BoxOfficeCell else { return UICollectionViewCell() }
+            
+            cell.rankNumberLabel.text = "\(indexPath.row + 1)"
+            cell.movieTitleLabel.text = movieName
+            cell.audienceLabel.text = "오늘 \(NumberFormatter().numberFormat(audienceCount)) / 총 \(NumberFormatter().numberFormat(audienceAccumulation))"
+            
+            if self.checkIfNew(data: data) {
+                cell.rankChangeLabel.text = "신작"
+                cell.rankChangeLabel.textColor = .red
+            } else {
+                cell.rankChangeLabel.attributedText = self.rankIntensityFormate(rankIntensity)
             }
-            //cell에 데이터 넣어주고 싶으면 cell.parameter = Data 해서 넣어주기~~
-            
-            cell.rankNumberLabel.text = "\(indexPath.row)"
-            cell.rankChangeLabel.text = "순위 변동 라벨"
-            
-            cell.titleLabel.text = "영화 제목"
-            cell.audienceLabel.text = "오늘 Z,ZZZ명 / 총 XX,XXX명"
-            
-            print("\(cell.rankNumberLabel.text)")
             
             return cell
         })
     }
     
+    func checkIfNew(data: BoxOfficeInformation) -> Bool {
+        return data.rankOldAndNew == "NEW" ? true : false
+    }
+    
+    func rankIntensityFormate(_ rankIntensity: String) -> NSAttributedString {
+        let number = Int(rankIntensity) ?? 0
+        
+        if number > 0 {
+            return UILabel().asColor(color: .red, fullText: "▲\(abs(number))", targetString: "▲")
+        } else if number < 0 {
+            return UILabel().asColor(color: .systemBlue,
+                                     fullText: "▼\(abs(number))", targetString: "▼")
+        } else {
+            return UILabel().asColor(color: .black, fullText: "-", targetString: "")
+        }
+    }
+    
     func setSnapshot() {
-//        if dataSource == nil { return } //불필요하지만 처음 설정 때 없으면 에러 나더라구요? ㅎㅎㅎㅎㅎㅎ\\
+        if dataSource == nil { return }
         
-        var snapShot = NSDiffableDataSourceSnapshot<Int, Temp>()
-        let section = Array(0...1) //저희는 근데 섹션 한개쓸거라 ㅋㅋ.. 근데 방법을 모름..
+        var snapShot = NSDiffableDataSourceSnapshot<Int, BoxOfficeInformation>()
+        let section = Array(0...1)
         snapShot.appendSections(section)
-////        snapShot.appendItems(tempData!, toSection: 0)//강제옵셔널 수정!!
-        snapShot.appendItems(tempData, toSection: 0)
-        
-//        snapShot.appendSections([0])
-//        snapShot.appendItems(tempData)
+        snapShot.appendItems(boxOfficeData, toSection: 0)
         dataSource.apply(snapShot)
     }
 }

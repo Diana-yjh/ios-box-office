@@ -25,7 +25,7 @@ struct BoxOfficeResults: Codable {
     }
 }
 
-struct BoxOfficeInformation: Codable {
+struct BoxOfficeInformation: Codable, Hashable {
     let squenceNumber: String?
     let rank: String?
     let rankIntensity: String?
