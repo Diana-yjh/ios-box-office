@@ -60,9 +60,9 @@ extension ViewController {
             guard let movieName = data.movieName,
                   let audienceCount = data.audienceCount,
                   let audienceAccumulation = data.audienceAccumulation,
-                  let rankIntensity = data.rankIntensity else { return UICollectionViewCell() }
+                  let rankIntensity = data.rankIntensity else { return UICollectionViewListCell() }
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.reuseIdentifier, for: indexPath) as? BoxOfficeCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.reuseIdentifier, for: indexPath) as? BoxOfficeCell else { return UICollectionViewListCell() }
             
             cell.rankNumberLabel.text = "\(indexPath.row + 1)"
             cell.movieTitleLabel.text = movieName
@@ -74,6 +74,8 @@ extension ViewController {
             } else {
                 cell.rankChangeLabel.attributedText = self.rankIntensityFormate(rankIntensity)
             }
+            
+            cell.accessories = [.disclosureIndicator(displayed: .always)]
             
             return cell
         })

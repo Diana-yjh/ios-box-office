@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BoxOfficeCell: UICollectionViewCell {
+class BoxOfficeCell: UICollectionViewListCell {
     static let reuseIdentifier = "boxOfficeCell"
     
     let cellStackView: UIStackView = {
@@ -20,17 +20,6 @@ class BoxOfficeCell: UICollectionViewCell {
         stackView.alignment = .center
         
         return stackView
-    }()
-    
-    let arrowImageView: UIImageView = {
-        let imageView = UIImageView()
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "chevron.right")
-        imageView.tintColor = .systemGray2
-        imageView.contentMode = .scaleAspectFit
-        
-        return imageView
     }()
     
     let leftStackView: UIStackView = {
@@ -107,7 +96,7 @@ class BoxOfficeCell: UICollectionViewCell {
     
     func configure() {
         contentView.addSubview(cellStackView)
-        [leftStackView, rightStackView, arrowImageView].forEach {
+        [leftStackView, rightStackView].forEach {
             self.cellStackView.addArrangedSubview($0)
         }
         
@@ -120,6 +109,8 @@ class BoxOfficeCell: UICollectionViewCell {
         }
         
         NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: 80),
+            
             cellStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             cellStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -129,14 +120,9 @@ class BoxOfficeCell: UICollectionViewCell {
             leftStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
             leftStackView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor),
             
-            
             rightStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
             rightStackView.leadingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
-            rightStackView.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor),
-            
-            arrowImageView.widthAnchor.constraint(equalTo: cellStackView.widthAnchor, multiplier: 0.15),
-            arrowImageView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-            arrowImageView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor),
+            rightStackView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor),
         ])
     }
 }
