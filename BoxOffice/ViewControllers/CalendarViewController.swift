@@ -7,18 +7,26 @@
 
 import UIKit
 
+protocol SendDataDelegate: AnyObject {
+    func updateDate(dateComponents: DateComponents)
+}
+
 class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDelegate {
-    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        print("컬렉션 뷰 업데이트 필요함")
-        
-        guard let year = dateComponents?.year, let month = dateComponents?.month, let day = dateComponents?.day else { return }
-        
-        self.dismiss(animated: true) {
-            let selectDateAPI = "\(year)\(month)\(day)"
-        }
-    }
     
     var calendarView = UICalendarView()
+    var selectedDateComponents: DateComponents?
+    weak var delegate: SendDataDelegate?
+    
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        guard let safeDateComponents = dateComponents else {
+            return
+        }
+        
+        self.selectedDateComponents = safeDateComponents
+        
+        self.delegate?.updateDate(dateComponents: safeDateComponents)
+        self.dismiss(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

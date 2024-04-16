@@ -7,10 +7,19 @@
 
 import UIKit
 
+extension ViewController: SendDataDelegate {
+    func updateDate(dateComponents: DateComponents) {
+        self.selectedDateComponents = dateComponents
+        self.configureUI()
+    }
+}
+
 class ViewController: UIViewController {
+    
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>!
     private var boxOfficeData: [BoxOfficeInformation] = []
+    private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date() - 86400)
     
     lazy var calendarButton: UIBarButtonItem = {
         let item = UIBarButtonItem()
@@ -64,14 +73,18 @@ class ViewController: UIViewController {
     }
     
     @objc func selectCalendarDate(sender: AnyObject) {
-        self.present(CalendarViewController(), animated: true)
+        let vc = CalendarViewController()
+        vc.delegate = self
+        vc.selectedDateComponents = self.selectedDateComponents
+        
+        self.present(vc, animated: true)
     }
     
     func configureRefreshControl() {
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
-        
+    
     @objc func handleRefreshControl() {
         setSnapshot()
         
