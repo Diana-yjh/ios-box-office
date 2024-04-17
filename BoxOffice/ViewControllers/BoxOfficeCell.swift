@@ -32,18 +32,6 @@ class BoxOfficeCell: UICollectionViewListCell {
         rankChangeLabel.textColor = .black
     }
     
-    let cellStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 0
-        stackView.distribution = .fillProportionally
-        stackView.alignment = .center
-        
-        return stackView
-    }()
-    
     let leftStackView: UIStackView = {
         let stackView = UIStackView()
         
@@ -112,9 +100,8 @@ class BoxOfficeCell: UICollectionViewListCell {
     }
     
     func configure() {
-        contentView.addSubview(cellStackView)
         [leftStackView, rightStackView].forEach {
-            self.cellStackView.addArrangedSubview($0)
+            self.contentView.addSubview($0)
         }
         
         [rankNumberLabel, rankChangeLabel].forEach {
@@ -127,19 +114,14 @@ class BoxOfficeCell: UICollectionViewListCell {
         
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: 80),
-            
-            cellStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            cellStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cellStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            leftStackView.widthAnchor.constraint(equalTo: cellStackView.widthAnchor, multiplier: 0.2),
-            leftStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
-            leftStackView.leadingAnchor.constraint(equalTo: cellStackView.leadingAnchor),
-            
-            rightStackView.centerYAnchor.constraint(equalTo: cellStackView.centerYAnchor),
+
+            leftStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
+            leftStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            leftStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+
+            rightStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             rightStackView.leadingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
-            rightStackView.trailingAnchor.constraint(equalTo: cellStackView.trailingAnchor),
+            rightStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }
