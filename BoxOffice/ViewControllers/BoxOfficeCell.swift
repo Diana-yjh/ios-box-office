@@ -136,7 +136,7 @@ extension BoxOfficeCell {
         
         rankNumberLabel.text = movieRank
         movieTitleLabel.text = movieName
-        audienceLabel.text = "오늘 \(NumberFormatter().numberFormat(audienceCount)) / 총 \(NumberFormatter().numberFormat(audienceAccumulation))"
+        audienceLabel.text = "오늘 \(NumberFormatter.formatNumber(audienceCount)) / 총 \(NumberFormatter.formatNumber(audienceAccumulation))"
         
         if self.checkIfNew(data: data) {
             rankChangeLabel.text = "신작"

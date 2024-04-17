@@ -8,9 +8,14 @@
 import Foundation
 
 extension NumberFormatter {
-    func numberFormat(_ audience: String) -> String {
+    static let customNumberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        return formatter
+    }()
+    
+    static func formatNumber(_ audience: String) -> String {
         let number = Int(audience)
-        self.numberStyle = .decimal
-        return self.string(for: number) ?? "0"
+        self.customNumberFormatter.numberStyle = .decimal
+        return self.customNumberFormatter.string(for: number) ?? "0"
     }
 }
