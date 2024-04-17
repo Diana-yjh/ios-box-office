@@ -25,6 +25,7 @@
 		8BF0F75A2BCE20E000371B15 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF0F7592BCE20E000371B15 /* UILabel+.swift */; };
 		8BF0F75C2BCE218F00371B15 /* NumberFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF0F75B2BCE218F00371B15 /* NumberFormatter+.swift */; };
 		8BF0F75E2BCE566E00371B15 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF0F75D2BCE566D00371B15 /* CalendarViewController.swift */; };
+		8BFD944E2BCFF083004ADB0E /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFD944D2BCFF083004ADB0E /* Date+.swift */; };
 		8BFFF6EA2BBBCF580036AD83 /* BoxOfficeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFF6E92BBBCF580036AD83 /* BoxOfficeTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		8BF0F7592BCE20E000371B15 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		8BF0F75B2BCE218F00371B15 /* NumberFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+.swift"; sourceTree = "<group>"; };
 		8BF0F75D2BCE566D00371B15 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		8BFD944D2BCFF083004ADB0E /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		8BFFF6E72BBBCF580036AD83 /* BoxOfficeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxOfficeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BFFF6E92BBBCF580036AD83 /* BoxOfficeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +145,7 @@
 				2E9AF6862BBFEB830070DCCA /* Bundle+.swift */,
 				8BF0F7592BCE20E000371B15 /* UILabel+.swift */,
 				8BF0F75B2BCE218F00371B15 /* NumberFormatter+.swift */,
+				8BFD944D2BCFF083004ADB0E /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				2E9AF6852BBFE0290070DCCA /* MovieInformation.swift in Sources */,
 				2E9AF6442BBBC7D70070DCCA /* BoxOffice.swift in Sources */,
 				2E9AF6872BBFEB830070DCCA /* Bundle+.swift in Sources */,
+				8BFD944E2BCFF083004ADB0E /* Date+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

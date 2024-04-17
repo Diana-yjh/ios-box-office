@@ -48,7 +48,7 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
         }
         
         if let startDate = Calendar(identifier: .gregorian).date(from: DateComponents(year: 2000, month: 1, day: 1)) {
-            calendarView.availableDateRange = DateInterval(start: startDate, end: Date() - 86400)
+            calendarView.availableDateRange = DateInterval(start: startDate, end: Date.yesterday)
         }
     }
     
