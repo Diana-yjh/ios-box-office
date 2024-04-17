@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        activityIndicator.center = self.view.center
+        activityIndicator.center = view.center
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .medium
@@ -40,9 +40,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = calendarButton
-        self.configureCollectionView()
-        self.configureDataSource()
+        navigationItem.rightBarButtonItem = calendarButton
+        configureCollectionView()
+        configureDataSource()
         configureUI()
     }
     
@@ -57,9 +57,9 @@ class ViewController: UIViewController {
     }
     
     func updateNavigationBar() {
-        let dateComponents = self.selectedDateComponents
+        let dateComponents = selectedDateComponents
         let date = DateFormatter.fetchYesterdayDate(dateFormatType: .navigationTitle, dateComponents: dateComponents)
-        self.navigationItem.title = date
+        navigationItem.title = date
     }
     
     func getBoxOfficeData(completion: @escaping() -> ()) {
@@ -77,10 +77,10 @@ class ViewController: UIViewController {
     }
     
     func configureCollectionView() {
-        self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.createCollectionViewLayout())
-        self.collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.reuseIdentifier)
-        self.view.addSubview(self.collectionView)
-        self.view.addSubview(activityIndicator)
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCollectionViewLayout())
+        collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.reuseIdentifier)
+        view.addSubview(collectionView)
+        view.addSubview(activityIndicator)
         configureRefreshControl()
     }
     
@@ -93,9 +93,9 @@ class ViewController: UIViewController {
     @objc func selectCalendarDate(sender: AnyObject) {
         let vc = CalendarViewController()
         vc.delegate = self
-        vc.selectedDateComponents = self.selectedDateComponents
+        vc.selectedDateComponents = selectedDateComponents
         
-        self.present(vc, animated: true)
+        present(vc, animated: true)
     }
     
     func configureRefreshControl() {
@@ -170,8 +170,8 @@ extension ViewController {
 
 extension ViewController: SendDataDelegate {
     func updateDate(dateComponents: DateComponents) {
-        self.activityIndicator.startAnimating()
-        self.selectedDateComponents = dateComponents
-        self.configureUI()
+        activityIndicator.startAnimating()
+        selectedDateComponents = dateComponents
+        configureUI()
     }
 }

@@ -22,10 +22,10 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
             return
         }
         
-        self.selectedDateComponents = safeDateComponents
+        selectedDateComponents = safeDateComponents
         
-        self.delegate?.updateDate(dateComponents: safeDateComponents)
-        self.dismiss(animated: true)
+        delegate?.updateDate(dateComponents: safeDateComponents)
+        dismiss(animated: true)
     }
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
         let selectionDelegate = UICalendarSelectionSingleDate(delegate: self)
         calendarView.selectionBehavior = selectionDelegate
         
-        if let safeDateComponents = self.selectedDateComponents {
+        if let safeDateComponents = selectedDateComponents {
             selectionDelegate.setSelected(safeDateComponents, animated: true)
         }
         
@@ -58,10 +58,10 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.calendarView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.calendarView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.calendarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.calendarView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            calendarView.topAnchor.constraint(equalTo: view.topAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
