@@ -9,10 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>!
     private var boxOfficeData: [BoxOfficeInformation] = []
     private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date.yesterday)
+    
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.createCollectionViewLayout())
+        return collectionView
+    }()
     
     private lazy var calendarButton: UIBarButtonItem = {
         let item = UIBarButtonItem()
@@ -77,7 +81,6 @@ class ViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCollectionViewLayout())
         collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.reuseIdentifier)
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
