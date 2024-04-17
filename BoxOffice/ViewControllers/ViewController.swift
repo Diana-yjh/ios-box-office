@@ -71,7 +71,7 @@ class ViewController: UIViewController {
                 self.boxOfficeData = boxOfficeData
                 completion()
             case .failure(let error):
-                print(error)
+                self.errorAlert()
             }
         }
     }
@@ -108,6 +108,16 @@ class ViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.collectionView.refreshControl?.endRefreshing()
+        }
+    }
+    
+    func errorAlert() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            let alert = UIAlertController(title: "데이터 로딩 실패", message: nil, preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
         }
     }
 }
