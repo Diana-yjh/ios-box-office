@@ -11,22 +11,10 @@ protocol SendDataDelegate: AnyObject {
     func updateDate(dateComponents: DateComponents)
 }
 
-class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDelegate {
-    
+class CalendarViewController: UIViewController {
     private var calendarView = UICalendarView()
     var selectedDateComponents: DateComponents?
     weak var delegate: SendDataDelegate?
-    
-    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        guard let safeDateComponents = dateComponents else {
-            return
-        }
-        
-        selectedDateComponents = safeDateComponents
-        
-        delegate?.updateDate(dateComponents: safeDateComponents)
-        dismiss(animated: true)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,5 +51,18 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
             calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension CalendarViewController: UICalendarSelectionSingleDateDelegate {
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        guard let safeDateComponents = dateComponents else {
+            return
+        }
+        
+        selectedDateComponents = safeDateComponents
+        
+        delegate?.updateDate(dateComponents: safeDateComponents)
+        dismiss(animated: true)
     }
 }
