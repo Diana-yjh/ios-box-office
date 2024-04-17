@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  BoxOffice
 //
-//  Created by kjs on 13/01/23.
+//  Created by Danny, Diana, gama on 13/01/23.
 //
 
 import UIKit

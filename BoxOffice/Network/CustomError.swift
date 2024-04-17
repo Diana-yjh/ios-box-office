@@ -2,7 +2,7 @@
 //  CustomError.swift
 //  BoxOffice
 //
-//  Created by Yejin Hong on 4/8/24.
+//  Created by Danny, Diana, gama on 4/8/24.
 //
 
 import Foundation

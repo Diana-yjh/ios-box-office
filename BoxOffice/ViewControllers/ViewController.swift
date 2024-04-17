@@ -7,14 +7,6 @@
 
 import UIKit
 
-extension ViewController: SendDataDelegate {
-    func updateDate(dateComponents: DateComponents) {
-        self.activityIndicator.startAnimating()
-        self.selectedDateComponents = dateComponents
-        self.configureUI()
-    }
-}
-
 class ViewController: UIViewController {
     
     private var collectionView: UICollectionView!
@@ -173,5 +165,13 @@ extension ViewController {
         snapShot.appendSections(section)
         snapShot.appendItems(boxOfficeData, toSection: 0)
         dataSource.apply(snapShot)
+    }
+}
+
+extension ViewController: SendDataDelegate {
+    func updateDate(dateComponents: DateComponents) {
+        self.activityIndicator.startAnimating()
+        self.selectedDateComponents = dateComponents
+        self.configureUI()
     }
 }
