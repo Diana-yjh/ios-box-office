@@ -129,45 +129,13 @@ extension ViewController {
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let data = self.boxOfficeData[indexPath.row]
-            guard let movieName = data.movieName,
-                  let audienceCount = data.audienceCount,
-                  let audienceAccumulation = data.audienceAccumulation,
-                  let rankIntensity = data.rankIntensity else { return UICollectionViewListCell() }
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.reuseIdentifier, for: indexPath) as? BoxOfficeCell else { return UICollectionViewListCell() }
             
-            cell.rankNumberLabel.text = "\(indexPath.row + 1)"
-            cell.movieTitleLabel.text = movieName
-            cell.audienceLabel.text = "오늘 \(NumberFormatter().numberFormat(audienceCount)) / 총 \(NumberFormatter().numberFormat(audienceAccumulation))"
-            
-            if self.checkIfNew(data: data) {
-                cell.rankChangeLabel.text = "신작"
-                cell.rankChangeLabel.textColor = .red
-            } else {
-                cell.rankChangeLabel.attributedText = self.rankIntensityFormate(rankIntensity)
-            }
-            
-            cell.accessories = [.disclosureIndicator(displayed: .always)]
+            cell.updateComponents(data: data)
             
             return cell
         })
-    }
-    
-    private func checkIfNew(data: BoxOfficeInformation) -> Bool {
-        return data.rankOldAndNew == "NEW" ? true : false
-    }
-    
-    private func rankIntensityFormate(_ rankIntensity: String) -> NSAttributedString {
-        let number = Int(rankIntensity) ?? 0
-        
-        if number > 0 {
-            return UILabel().asColor(color: .red, fullText: "▲\(abs(number))", targetString: "▲")
-        } else if number < 0 {
-            return UILabel().asColor(color: .systemBlue,
-                                     fullText: "▼\(abs(number))", targetString: "▼")
-        } else {
-            return UILabel().asColor(color: .black, fullText: "-", targetString: "")
-        }
     }
     
     private func setSnapshot() {

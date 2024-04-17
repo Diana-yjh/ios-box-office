@@ -125,3 +125,43 @@ class BoxOfficeCell: UICollectionViewListCell {
         ])
     }
 }
+
+extension BoxOfficeCell {
+    func updateComponents(data: BoxOfficeInformation) {
+        guard let movieRank = data.rank,
+              let movieName = data.movieName,
+              let audienceCount = data.audienceCount,
+              let audienceAccumulation = data.audienceAccumulation,
+              let rankIntensity = data.rankIntensity else { return }
+        
+        rankNumberLabel.text = movieRank
+        movieTitleLabel.text = movieName
+        audienceLabel.text = "오늘 \(NumberFormatter().numberFormat(audienceCount)) / 총 \(NumberFormatter().numberFormat(audienceAccumulation))"
+        
+        if self.checkIfNew(data: data) {
+            rankChangeLabel.text = "신작"
+            rankChangeLabel.textColor = .red
+        } else {
+            rankChangeLabel.attributedText = rankIntensityFormate(rankIntensity)
+        }
+        
+        accessories = [.disclosureIndicator(displayed: .always)]
+    }
+    
+    private func checkIfNew(data: BoxOfficeInformation) -> Bool {
+        return data.rankOldAndNew == "NEW" ? true : false
+    }
+    
+    private func rankIntensityFormate(_ rankIntensity: String) -> NSAttributedString {
+        let number = Int(rankIntensity) ?? 0
+        
+        if number > 0 {
+            return UILabel().asColor(color: .red, fullText: "▲\(abs(number))", targetString: "▲")
+        } else if number < 0 {
+            return UILabel().asColor(color: .systemBlue,
+                                     fullText: "▼\(abs(number))", targetString: "▼")
+        } else {
+            return UILabel().asColor(color: .black, fullText: "-", targetString: "")
+        }
+    }
+}
