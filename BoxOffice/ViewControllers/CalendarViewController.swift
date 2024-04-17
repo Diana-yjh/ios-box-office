@@ -13,7 +13,7 @@ protocol SendDataDelegate: AnyObject {
 
 class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDelegate {
     
-    var calendarView = UICalendarView()
+    private var calendarView = UICalendarView()
     var selectedDateComponents: DateComponents?
     weak var delegate: SendDataDelegate?
     
@@ -35,7 +35,7 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
         setUI()
     }
     
-    func configureCalendarView() {
+    private func configureCalendarView() {
         calendarView = UICalendarView()
         calendarView.calendar = Calendar(identifier: .gregorian)
         calendarView.locale = Locale(identifier: "ko_KR")
@@ -52,7 +52,7 @@ class CalendarViewController: UIViewController, UICalendarSelectionSingleDateDel
         }
     }
     
-    func setUI() {
+    private func setUI() {
         view.backgroundColor = .white
         view.addSubview(calendarView)
         calendarView.translatesAutoresizingMaskIntoConstraints = false

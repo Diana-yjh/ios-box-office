@@ -32,7 +32,7 @@ class BoxOfficeCell: UICollectionViewListCell {
         rankChangeLabel.textColor = .black
     }
     
-    let leftStackView: UIStackView = {
+    private let leftStackView: UIStackView = {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class BoxOfficeCell: UICollectionViewListCell {
         return stackView
     }()
     
-    let rightStackView: UIStackView = {
+    private let rightStackView: UIStackView = {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +99,7 @@ class BoxOfficeCell: UICollectionViewListCell {
       separatorLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
     }
     
-    func configure() {
+    private func configure() {
         [leftStackView, rightStackView].forEach {
             self.contentView.addSubview($0)
         }

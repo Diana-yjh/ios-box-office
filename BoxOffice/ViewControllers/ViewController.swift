@@ -12,9 +12,9 @@ class ViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>!
     private var boxOfficeData: [BoxOfficeInformation] = []
-    private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date() - 86400)
+    private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date.yesterday)
     
-    lazy var calendarButton: UIBarButtonItem = {
+    private lazy var calendarButton: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.title = "날짜선택"
         item.target = self
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         return item
     }()
     
-    lazy var activityIndicator: UIActivityIndicatorView = {
+    private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         activityIndicator.center = view.center
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         configureUI()
     }
     
-    func configureUI() {
+    private func configureUI() {
         getBoxOfficeData {
             DispatchQueue.main.async {
                 self.updateNavigationBar()
@@ -56,13 +56,13 @@ class ViewController: UIViewController {
         }
     }
     
-    func updateNavigationBar() {
+    private func updateNavigationBar() {
         let dateComponents = selectedDateComponents
         let date = DateFormatter.fetchYesterdayDate(dateFormatType: .navigationTitle, dateComponents: dateComponents)
         navigationItem.title = date
     }
     
-    func getBoxOfficeData(completion: @escaping() -> ()) {
+    private func getBoxOfficeData(completion: @escaping() -> ()) {
         guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api, dateComponents: self.selectedDateComponents)) else { return }
         NetworkService().startLoad(url: url, type: BoxOffice.self) { result in
             switch result {
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCollectionViewLayout())
         collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.reuseIdentifier)
         view.addSubview(collectionView)
@@ -84,13 +84,13 @@ class ViewController: UIViewController {
         configureRefreshControl()
     }
     
-    func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         
         return UICollectionViewCompositionalLayout.list(using: configuration)
     }
     
-    @objc func selectCalendarDate(sender: AnyObject) {
+    @objc private func selectCalendarDate(sender: AnyObject) {
         let vc = CalendarViewController()
         vc.delegate = self
         vc.selectedDateComponents = selectedDateComponents
@@ -98,12 +98,12 @@ class ViewController: UIViewController {
         present(vc, animated: true)
     }
     
-    func configureRefreshControl() {
+    private func configureRefreshControl() {
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
     }
     
-    @objc func handleRefreshControl() {
+    @objc private func handleRefreshControl() {
         setSnapshot()
         
         DispatchQueue.main.async {
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
-    func configureDataSource() {
+    private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let data = self.boxOfficeData[indexPath.row]
             guard let movieName = data.movieName,
@@ -140,11 +140,11 @@ extension ViewController {
         })
     }
     
-    func checkIfNew(data: BoxOfficeInformation) -> Bool {
+    private func checkIfNew(data: BoxOfficeInformation) -> Bool {
         return data.rankOldAndNew == "NEW" ? true : false
     }
     
-    func rankIntensityFormate(_ rankIntensity: String) -> NSAttributedString {
+    private func rankIntensityFormate(_ rankIntensity: String) -> NSAttributedString {
         let number = Int(rankIntensity) ?? 0
         
         if number > 0 {
@@ -157,7 +157,7 @@ extension ViewController {
         }
     }
     
-    func setSnapshot() {
+    private func setSnapshot() {
         if dataSource == nil { return }
         
         var snapShot = NSDiffableDataSourceSnapshot<Int, BoxOfficeInformation>()
