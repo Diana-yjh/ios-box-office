@@ -8,7 +8,7 @@
 import UIKit
 
 class BoxOfficeCell: UICollectionViewListCell {
-    static let reuseIdentifier = "boxOfficeCell"
+    static let IDENTIFIER = "boxOfficeCell"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -127,41 +127,18 @@ class BoxOfficeCell: UICollectionViewListCell {
 }
 
 extension BoxOfficeCell {
-    func updateComponents(data: BoxOfficeInformation) {
-        guard let movieRank = data.rank,
-              let movieName = data.movieName,
-              let audienceCount = data.audienceCount,
-              let audienceAccumulation = data.audienceAccumulation,
-              let rankIntensity = data.rankIntensity else { return }
+    func updateComponents(data: BoxOfficeInformationDTO) {
+        rankNumberLabel.text = data.rank
+        movieTitleLabel.text = data.movieName
+        audienceLabel.text = "오늘 \(NumberFormatter.formatNumber(data.audienceCount)) / 총 \(NumberFormatter.formatNumber(data.audienceAccumulation))"
         
-        rankNumberLabel.text = movieRank
-        movieTitleLabel.text = movieName
-        audienceLabel.text = "오늘 \(NumberFormatter.formatNumber(audienceCount)) / 총 \(NumberFormatter.formatNumber(audienceAccumulation))"
-        
-        if self.checkIfNew(data: data) {
+        if data.checkIfNew() {
             rankChangeLabel.text = "신작"
             rankChangeLabel.textColor = .red
         } else {
-            rankChangeLabel.attributedText = rankIntensityFormate(rankIntensity)
+            rankChangeLabel.attributedText = data.rankIntensityFormate()
         }
         
         accessories = [.disclosureIndicator(displayed: .always)]
-    }
-    
-    private func checkIfNew(data: BoxOfficeInformation) -> Bool {
-        return data.rankOldAndNew == "NEW" ? true : false
-    }
-    
-    private func rankIntensityFormate(_ rankIntensity: String) -> NSAttributedString {
-        let number = Int(rankIntensity) ?? 0
-        
-        if number > 0 {
-            return UILabel().asColor(color: .red, fullText: "▲\(abs(number))", targetString: "▲")
-        } else if number < 0 {
-            return UILabel().asColor(color: .systemBlue,
-                                     fullText: "▼\(abs(number))", targetString: "▼")
-        } else {
-            return UILabel().asColor(color: .black, fullText: "-", targetString: "")
-        }
     }
 }

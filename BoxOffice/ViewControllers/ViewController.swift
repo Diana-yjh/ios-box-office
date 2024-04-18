@@ -8,9 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>!
-    private var boxOfficeData: [BoxOfficeInformation] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformationDTO>!
+    private var boxOfficeData: [BoxOfficeInformationDTO] = []
     private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date.yesterday)
     
     private lazy var collectionView: UICollectionView = {
@@ -72,7 +71,7 @@ class ViewController: UIViewController {
             switch result {
             case .success(let data):
                 guard let boxOfficeData = data.boxOfficeResults.boxOffices else { return }
-                self.boxOfficeData = boxOfficeData
+                self.boxOfficeData = boxOfficeData.map { $0.toDTO() }
                 completion()
             case .failure(let error):
                 self.errorAlert()
@@ -81,7 +80,7 @@ class ViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.reuseIdentifier)
+        collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.IDENTIFIER)
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
         configureRefreshControl()
@@ -127,10 +126,10 @@ class ViewController: UIViewController {
 
 extension ViewController {
     private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Int, BoxOfficeInformation>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        dataSource = UICollectionViewDiffableDataSource<Int, BoxOfficeInformationDTO>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let data = self.boxOfficeData[indexPath.row]
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.reuseIdentifier, for: indexPath) as? BoxOfficeCell else { return UICollectionViewListCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.IDENTIFIER, for: indexPath) as? BoxOfficeCell else { return UICollectionViewListCell() }
             
             cell.updateComponents(data: data)
             
@@ -141,7 +140,7 @@ extension ViewController {
     private func setSnapshot() {
         if dataSource == nil { return }
         
-        var snapShot = NSDiffableDataSourceSnapshot<Int, BoxOfficeInformation>()
+        var snapShot = NSDiffableDataSourceSnapshot<Int, BoxOfficeInformationDTO>()
         let section = Array(0...1)
         snapShot.appendSections(section)
         snapShot.appendItems(boxOfficeData, toSection: 0)

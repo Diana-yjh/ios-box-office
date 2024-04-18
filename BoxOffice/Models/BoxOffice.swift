@@ -25,7 +25,7 @@ struct BoxOfficeResults: Codable {
     }
 }
 
-struct BoxOfficeInformation: Codable, Hashable {
+struct BoxOfficeInformation: Codable {
     let squenceNumber: String?
     let rank: String?
     let rankIntensity: String?
@@ -64,5 +64,11 @@ struct BoxOfficeInformation: Codable, Hashable {
         case audienceAccumulation = "audiAcc"
         case screenCount = "scrnCnt"
         case showCount = "showCnt"
+    }
+}
+
+extension BoxOfficeInformation {
+    func toDTO() -> BoxOfficeInformationDTO {
+        return BoxOfficeInformationDTO.init(rank: self.rank ?? "", rankIntensity: self.rankIntensity ?? "", rankOldAndNew: self.rankOldAndNew ?? "", movieRepresentCode: self.movieRepresentCode ?? "", movieName: self.movieName ?? "", audienceCount: self.audienceCount ?? "", audienceAccumulation: self.audienceAccumulation ?? "")
     }
 }
