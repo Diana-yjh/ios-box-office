@@ -6,7 +6,7 @@
 //
 
 struct BoxOffice: Codable {
-    let boxOfficeResults: BoxOfficeResults
+    let boxOfficeResults: BoxOfficeResults?
     
     enum CodingKeys: String, CodingKey {
         case boxOfficeResults = "boxOfficeResult"
@@ -69,6 +69,12 @@ struct BoxOfficeInformation: Codable {
 
 extension BoxOfficeInformation {
     func toDTO() -> BoxOfficeInformationDTO {
-        return BoxOfficeInformationDTO.init(rank: self.rank ?? "", rankIntensity: self.rankIntensity ?? "", rankOldAndNew: self.rankOldAndNew ?? "", movieRepresentCode: self.movieRepresentCode ?? "", movieName: self.movieName ?? "", audienceCount: self.audienceCount ?? "", audienceAccumulation: self.audienceAccumulation ?? "")
+        return BoxOfficeInformationDTO.init(rank: self.rank ?? "",
+                                            rankIntensity: self.rankIntensity ?? "",
+                                            rankOldAndNew: self.rankOldAndNew ?? "",
+                                            movieRepresentCode: self.movieRepresentCode ?? "",
+                                            movieName: self.movieName ?? "",
+                                            audienceCount: self.audienceCount ?? "",
+                                            audienceAccumulation: self.audienceAccumulation ?? "")
     }
 }

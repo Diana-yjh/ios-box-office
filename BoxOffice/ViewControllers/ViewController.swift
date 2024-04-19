@@ -70,7 +70,11 @@ class ViewController: UIViewController {
         NetworkService().startLoad(url: url, type: BoxOffice.self) { result in
             switch result {
             case .success(let data):
-                guard let boxOfficeData = data.boxOfficeResults.boxOffices else { return }
+                guard let boxOfficeData = data.boxOfficeResults?.boxOffices else { 
+                    self.activityIndicator.stopAnimating()
+                    self.errorAlert()
+                    return
+                }
                 self.boxOfficeData = boxOfficeData.map { $0.toDTO() }
                 completion()
             case .failure(let error):
@@ -116,7 +120,7 @@ class ViewController: UIViewController {
     func errorAlert() {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
-            let alert = UIAlertController(title: "데이터 로딩 실패", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "데이터 로딩 실패하였습니다. 재시도 할까요?", message: nil, preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(ok)
             self.present(alert, animated: true)
