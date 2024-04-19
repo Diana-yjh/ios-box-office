@@ -13,7 +13,11 @@ class ViewController: UIViewController {
     private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date.yesterday)
     
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: self.createCollectionViewLayout())
+        let collectionView = UICollectionView(frame: CGRect(x: 0,
+                                                            y: 0,
+                                                            width: view.bounds.width,
+                                                            height: view.bounds.height - 100),
+                                              collectionViewLayout: self.createCollectionViewLayout())
         return collectionView
     }()
     
@@ -41,6 +45,16 @@ class ViewController: UIViewController {
         return activityIndicator
     }()
     
+    private lazy var modeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("화면 모드 변경", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(changeMode), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = calendarButton
@@ -52,11 +66,27 @@ class ViewController: UIViewController {
     private func configureUI() {
         getBoxOfficeData {
             DispatchQueue.main.async {
+                self.configureMain()
                 self.updateNavigationBar()
                 self.setSnapshot()
                 self.activityIndicator.stopAnimating()
             }
         }
+    }
+    
+    private func configureMain() {
+        view.backgroundColor = .systemGray6
+    }
+    
+    private func configureModeButton() {
+        view.addSubview(modeButton)
+        
+        NSLayoutConstraint.activate([
+            modeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            modeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            modeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            modeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     private func updateNavigationBar() {
@@ -85,9 +115,12 @@ class ViewController: UIViewController {
     
     private func configureCollectionView() {
         collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.IDENTIFIER)
+        
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
+        
         configureRefreshControl()
+        configureModeButton()
     }
     
     private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -102,6 +135,19 @@ class ViewController: UIViewController {
         vc.selectedDateComponents = selectedDateComponents
         
         present(vc, animated: true)
+    }
+    
+    @objc private func changeMode(sender: AnyObject) {
+        let alert = UIAlertController(title: "화면모드 변경", message: nil, preferredStyle: .actionSheet)
+        let action = UIAlertAction(title: "아이콘", style: .default) { _ in
+            print("Action Working")
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(action)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
     }
     
     private func configureRefreshControl() {
