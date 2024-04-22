@@ -7,10 +7,25 @@
 
 import UIKit
 
+enum CellMode: String {
+    case list
+    case icon
+    
+    var name: String {
+        switch self {
+        case .list:
+            return "리스트"
+        case .icon:
+            return "아이콘"
+        }
+    }
+}
+
 class ViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformationDTO>!
     private var boxOfficeData: [BoxOfficeInformationDTO] = []
     private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date.yesterday)
+    private var cellMode: CellMode = .list
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect(x: 0,
@@ -60,13 +75,13 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = calendarButton
         configureCollectionView()
         configureDataSource()
+        configureMain()
         configureUI()
     }
     
     private func configureUI() {
         getBoxOfficeData {
             DispatchQueue.main.async {
-                self.configureMain()
                 self.updateNavigationBar()
                 self.setSnapshot()
                 self.activityIndicator.stopAnimating()
@@ -76,17 +91,6 @@ class ViewController: UIViewController {
     
     private func configureMain() {
         view.backgroundColor = .systemGray6
-    }
-    
-    private func configureModeButton() {
-        view.addSubview(modeButton)
-        
-        NSLayoutConstraint.activate([
-            modeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
-            modeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            modeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            modeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
     }
     
     private func updateNavigationBar() {
@@ -102,25 +106,15 @@ class ViewController: UIViewController {
             case .success(let data):
                 guard let boxOfficeData = data.boxOfficeResults?.boxOffices else { 
                     self.activityIndicator.stopAnimating()
-                    self.errorAlert()
+                    self.errorAlert(.emptyData)
                     return
                 }
                 self.boxOfficeData = boxOfficeData.map { $0.toDTO() }
                 completion()
             case .failure(let error):
-                self.errorAlert()
+                self.errorAlert(error)
             }
         }
-    }
-    
-    private func configureCollectionView() {
-        collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.IDENTIFIER)
-        
-        view.addSubview(collectionView)
-        view.addSubview(activityIndicator)
-        
-        configureRefreshControl()
-        configureModeButton()
     }
     
     private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -138,10 +132,13 @@ class ViewController: UIViewController {
     }
     
     @objc private func changeMode(sender: AnyObject) {
+        cellMode = (cellMode == .list) ? .icon : .list
+        
         let alert = UIAlertController(title: "화면모드 변경", message: nil, preferredStyle: .actionSheet)
-        let action = UIAlertAction(title: "아이콘", style: .default) { _ in
-            print("Action Working")
+        let action = UIAlertAction(title: "\(cellMode.name)", style: .default) { _ in
+            print(self.cellMode.name)
         }
+        
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
         alert.addAction(action)
@@ -150,23 +147,10 @@ class ViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    private func configureRefreshControl() {
-        collectionView.refreshControl = UIRefreshControl()
-        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
-    }
-    
-    @objc private func handleRefreshControl() {
-        setSnapshot()
-        
-        DispatchQueue.main.async {
-            self.collectionView.refreshControl?.endRefreshing()
-        }
-    }
-    
-    func errorAlert() {
+    func errorAlert(_ error: CustomError) {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
-            let alert = UIAlertController(title: "데이터 로딩 실패하였습니다. 재시도 할까요?", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "데이터 로딩 실패하였습니다. 재시도 할까요? \(error)", message: nil, preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(ok)
             self.present(alert, animated: true)
@@ -195,6 +179,42 @@ extension ViewController {
         snapShot.appendSections(section)
         snapShot.appendItems(boxOfficeData, toSection: 0)
         dataSource.apply(snapShot)
+    }
+}
+
+extension ViewController {
+    private func configureModeButton() {
+        view.addSubview(modeButton)
+        
+        NSLayoutConstraint.activate([
+            modeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            modeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            modeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            modeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func configureCollectionView() {
+        collectionView.register(BoxOfficeCell.self, forCellWithReuseIdentifier: BoxOfficeCell.IDENTIFIER)
+        
+        view.addSubview(collectionView)
+        view.addSubview(activityIndicator)
+        
+        configureRefreshControl()
+        configureModeButton()
+    }
+    
+    private func configureRefreshControl() {
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    @objc private func handleRefreshControl() {
+        setSnapshot()
+        
+        DispatchQueue.main.async {
+            self.collectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 
