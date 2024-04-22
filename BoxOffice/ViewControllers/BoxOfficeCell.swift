@@ -44,6 +44,17 @@ class BoxOfficeCell: UICollectionViewListCell {
         return stackView
     }()
     
+    private let gridStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        
+        return stackView
+    }()
+    
     private let rightStackView: UIStackView = {
         let stackView = UIStackView()
         
@@ -115,6 +126,8 @@ class BoxOfficeCell: UICollectionViewListCell {
                 self.rightStackView.addArrangedSubview($0)
             }
             
+            contentView.layer.borderWidth = 0
+            
             NSLayoutConstraint.activate([
                 contentView.heightAnchor.constraint(equalToConstant: 80),
 
@@ -128,6 +141,24 @@ class BoxOfficeCell: UICollectionViewListCell {
             ])
         case .icon:
             print("추가해주세요")
+            [gridStackView].forEach {
+                self.contentView.addSubview($0)
+            }
+            
+            [rankNumberLabel, movieTitleLabel, rankChangeLabel, audienceLabel].forEach {
+                self.gridStackView.addArrangedSubview($0)
+            }
+            
+            contentView.layer.borderWidth = 1
+            
+            NSLayoutConstraint.activate([
+                contentView.heightAnchor.constraint(equalToConstant: 80),
+                
+                gridStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+                gridStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+                gridStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                gridStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            ])
         }
     }
 }

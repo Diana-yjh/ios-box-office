@@ -124,7 +124,21 @@ class ViewController: UIViewController {
     }
     
     private func createCollectionViewIconLayout() -> UICollectionViewCompositionalLayout {
-        print("추가해주세요")
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.5))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = .fixed(10)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = CGFloat(10)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        
+        let configuration = UICollectionViewCompositionalLayout(section: section)
+        
+        return configuration
     }
     
     @objc private func selectCalendarDate(sender: AnyObject) {
