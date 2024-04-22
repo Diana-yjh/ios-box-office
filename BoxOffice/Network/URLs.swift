@@ -9,6 +9,7 @@ import Foundation
 
 struct URLs {
     static let apiKey = Bundle.main.apiKey ?? ""
+    static let kakaoApiKey = Bundle.main.kakaoApiKey ?? ""
     
     static let PREFIX = "https://kobis.or.kr/kobisopenapi/webservice/rest/"
     

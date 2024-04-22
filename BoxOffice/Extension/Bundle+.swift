@@ -16,4 +16,13 @@ extension Bundle {
             return key
         }
     }
+    
+    var kakaoApiKey: String? {
+        let key = infoDictionary?["KAKAO_API_KEY"] as? String
+        if key == "" {
+            fatalError("KAKAO_API_KEY 값을 입력해주세요.")
+        } else {
+            return key
+        }
+    }
 }
