@@ -77,6 +77,8 @@ class ViewController: UIViewController {
         configureDataSource(cellMode)
         configureMain()
         configureUI()
+        
+        collectionView.delegate = self
     }
     
     private func configureUI() {
@@ -251,5 +253,27 @@ extension ViewController: SendDataDelegate {
         activityIndicator.startAnimating()
         selectedDateComponents = dateComponents
         configureUI()
+    }
+}
+
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = self.boxOfficeData[indexPath.row]
+        
+        guard let url = URL(string: URLs.PREFIX + URLs.MOVIE_DETAIL + "\(data.movieRepresentCode)") else {
+            return
+        }
+        
+        NetworkService().startLoad(url: url, type: MovieInformation.self) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    let vc = MovieDetailViewController(movieInformation: data)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
