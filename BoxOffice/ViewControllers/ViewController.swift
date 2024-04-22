@@ -32,7 +32,7 @@ class ViewController: UIViewController {
                                                             y: 0,
                                                             width: view.bounds.width,
                                                             height: view.bounds.height - 100),
-                                              collectionViewLayout: self.createCollectionViewLayout())
+                                              collectionViewLayout: self.createCollectionViewListLayout())
         return collectionView
     }()
     
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = calendarButton
         configureCollectionView()
-        configureDataSource()
+        configureDataSource(cellMode)
         configureMain()
         configureUI()
     }
@@ -117,10 +117,14 @@ class ViewController: UIViewController {
         }
     }
     
-    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+    private func createCollectionViewListLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         
         return UICollectionViewCompositionalLayout.list(using: configuration)
+    }
+    
+    private func createCollectionViewIconLayout() -> UICollectionViewCompositionalLayout {
+        print("추가해주세요")
     }
     
     @objc private func selectCalendarDate(sender: AnyObject) {
@@ -136,7 +140,16 @@ class ViewController: UIViewController {
         
         let alert = UIAlertController(title: "화면모드 변경", message: nil, preferredStyle: .actionSheet)
         let action = UIAlertAction(title: "\(cellMode.name)", style: .default) { _ in
-            print(self.cellMode.name)
+            switch self.cellMode {
+            case .list:
+                self.collectionView.collectionViewLayout = self.createCollectionViewListLayout()
+                self.configureDataSource(.list)
+                self.configureUI()
+            case .icon:
+                self.collectionView.collectionViewLayout = self.createCollectionViewIconLayout()
+                self.configureDataSource(.icon)
+                self.configureUI()
+            }
         }
         
         let cancel = UIAlertAction(title: "취소", style: .cancel)
@@ -159,12 +172,13 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
-    private func configureDataSource() {
+    private func configureDataSource(_ mode: CellMode) {
         dataSource = UICollectionViewDiffableDataSource<Int, BoxOfficeInformationDTO>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let data = self.boxOfficeData[indexPath.row]
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCell.IDENTIFIER, for: indexPath) as? BoxOfficeCell else { return UICollectionViewListCell() }
-            
+            cell.cellMode = self.cellMode
+            cell.configure()
             cell.updateComponents(data: data)
             
             return cell

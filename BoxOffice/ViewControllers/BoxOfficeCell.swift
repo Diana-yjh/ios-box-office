@@ -9,6 +9,7 @@ import UIKit
 
 class BoxOfficeCell: UICollectionViewListCell {
     static let IDENTIFIER = "boxOfficeCell"
+    var cellMode: CellMode = .list
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -99,30 +100,35 @@ class BoxOfficeCell: UICollectionViewListCell {
       separatorLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
     }
     
-    private func configure() {
-        [leftStackView, rightStackView].forEach {
-            self.contentView.addSubview($0)
-        }
-        
-        [rankNumberLabel, rankChangeLabel].forEach {
-            self.leftStackView.addArrangedSubview($0)
-        }
-        
-        [movieTitleLabel, audienceLabel].forEach {
-            self.rightStackView.addArrangedSubview($0)
-        }
-        
-        NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(equalToConstant: 80),
+    func configure() {
+        switch cellMode {
+        case .list:
+            [leftStackView, rightStackView].forEach {
+                self.contentView.addSubview($0)
+            }
+            
+            [rankNumberLabel, rankChangeLabel].forEach {
+                self.leftStackView.addArrangedSubview($0)
+            }
+            
+            [movieTitleLabel, audienceLabel].forEach {
+                self.rightStackView.addArrangedSubview($0)
+            }
+            
+            NSLayoutConstraint.activate([
+                contentView.heightAnchor.constraint(equalToConstant: 80),
 
-            leftStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
-            leftStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            leftStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                leftStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
+                leftStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                leftStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 
-            rightStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            rightStackView.leadingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
-            rightStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
+                rightStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                rightStackView.leadingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
+                rightStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            ])
+        case .icon:
+            print("추가해주세요")
+        }
     }
 }
 
@@ -139,6 +145,10 @@ extension BoxOfficeCell {
             rankChangeLabel.attributedText = data.rankIntensityFormate()
         }
         
-        accessories = [.disclosureIndicator(displayed: .always)]
+        if cellMode == .list {
+            accessories = [.disclosureIndicator(displayed: .always)]
+        } else {
+            accessories.removeAll()
+        }
     }
 }
