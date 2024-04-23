@@ -25,7 +25,8 @@ class ViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Int, BoxOfficeInformationDTO>!
     private var boxOfficeData: [BoxOfficeInformationDTO] = []
     private var selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date.yesterday)
-    private var cellMode: CellMode = .list
+    private var defaults = UserDefaults.standard
+    private lazy var cellMode: CellMode = (defaults.value(forKey: "modeKey") as? String ?? "리스트" == "리스트") ? .list : .icon
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect(x: 0,
@@ -73,10 +74,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = calendarButton
+        switch self.cellMode {
+        case .list:
+            self.collectionView.collectionViewLayout = self.createCollectionViewListLayout()
+            self.configureDataSource(.list)
+            self.configureUI()
+        case .icon:
+            self.collectionView.collectionViewLayout = self.createCollectionViewIconLayout()
+            self.configureDataSource(.icon)
+            self.configureUI()
+        }
         configureCollectionView()
-        configureDataSource(cellMode)
         configureMain()
-        configureUI()
         
         collectionView.delegate = self
     }
@@ -152,10 +161,11 @@ class ViewController: UIViewController {
     }
     
     @objc private func changeMode(sender: AnyObject) {
-        cellMode = (cellMode == .list) ? .icon : .list
+        cellMode = (defaults.value(forKey: "modeKey") as? String == "리스트") ? .icon : .list
         
         let alert = UIAlertController(title: "화면모드 변경", message: nil, preferredStyle: .actionSheet)
         let action = UIAlertAction(title: "\(cellMode.name)", style: .default) { _ in
+            self.defaults.setValue(self.cellMode.name, forKey: "modeKey")
             switch self.cellMode {
             case .list:
                 self.collectionView.collectionViewLayout = self.createCollectionViewListLayout()
