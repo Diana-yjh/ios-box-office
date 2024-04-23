@@ -52,7 +52,7 @@ class MovieDetailViewController: UIViewController {
     // MARK: - 감독
     let movieDirectorStackView: UIStackView = {
         let stackView = UIStackView()
-        
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 10
@@ -382,7 +382,10 @@ class MovieDetailViewController: UIViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.moviePosterImageView.image = UIImage(data: data)
+                        guard let image = UIImage(data: data) else { return }
+                        
+                        self.moviePosterImageView.image = image
+                        self.moviePosterImageView.heightAnchor.constraint(equalTo: self.moviePosterImageView.widthAnchor, multiplier: image.size.height / image.size.width).isActive = true
                     }
                 }
             } catch {
@@ -441,7 +444,6 @@ class MovieDetailViewController: UIViewController {
             
             moviePosterImageView.topAnchor.constraint(equalTo: detailContentView.topAnchor, constant: MovieDetailViewController.topPaddingConstant),
             moviePosterImageView.widthAnchor.constraint(equalTo: safeArea.widthAnchor, constant: MovieDetailViewController.trailingPaddingConstant * 2),
-            moviePosterImageView.heightAnchor.constraint(equalTo: safeArea.widthAnchor, constant: MovieDetailViewController.trailingPaddingConstant * 2),
             moviePosterImageView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             moviePosterImageView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
