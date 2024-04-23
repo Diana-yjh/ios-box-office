@@ -8,7 +8,6 @@
 import UIKit
 
 class MovieDetailViewController: UIViewController {
-    
     static let topPaddingConstant: CGFloat = 20
     static let bottomPaddingConstant: CGFloat = -20
     static let leadingPaddingConstant: CGFloat = 20
@@ -18,7 +17,6 @@ class MovieDetailViewController: UIViewController {
     
     final let BODY_FONT: UIFont = FontConstants.BODY
     final let BODY_BOLD_FONT: UIFont = FontConstants.BODY_BOLD
-    
     
     var movieInformation: MovieInformation? = nil
     
@@ -52,7 +50,7 @@ class MovieDetailViewController: UIViewController {
     // MARK: - 감독
     let movieDirectorStackView: UIStackView = {
         let stackView = UIStackView()
-
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 10
@@ -351,49 +349,27 @@ class MovieDetailViewController: UIViewController {
             return
         }
         
-        guard let url = URL(string: "https://dapi.kakao.com/v2/search/image?query=\(movieName) 영화 포스터&page=1&size=1") else {
-            return
-        }
-        
-        var urlRequest = URLRequest(url: url)
-        
-        urlRequest.httpMethod = "GET" // 요청에 사용할 HTTP 메서드 설정
-        
-        urlRequest.setValue("KakaoAK \(URLs.kakaoApiKey)", forHTTPHeaderField: "Authorization") // HTTP 헤더 설정
-        
-        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let error = error {
-                print("URLSession Error")
-                return
-            }
-            
-            guard let data = data, let response = response as? HTTPURLResponse else {
-                print("Empty Data")
-                return
-            }
-            
-            do {
-                let jsonData = try JSONDecoder().decode(KakaoSearchData.self, from: data)
-                
-                DispatchQueue.global().async {
-                    guard let document = jsonData.documents.first, let url = URL(string: document.imageURL), let data = try? Data(contentsOf: url) else {
-                        print("Empty Document")
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        guard let image = UIImage(data: data) else { return }
-                        
-                        self.moviePosterImageView.image = image
-                        self.moviePosterImageView.heightAnchor.constraint(equalTo: self.moviePosterImageView.widthAnchor, multiplier: image.size.height / image.size.width).isActive = true
-                    }
+        NetworkService().loadKakaoSearchAPI(searchType: KakaoSearchType.image, dataType: KakaoSearchData.self, searchOption: KakaoSearchOption(query: "\(movieName) 영화 포스터", page: 1, size: 1)) { result in
+            switch result {
+            case .success(let data):
+                guard let firstDocument = data.documents?.first else {
+                    return
                 }
-            } catch {
-                print("Error parsing JSON response")
+                
+                let firstDocumentDTO = firstDocument.toDTO()
+                
+                guard let url = URL(string: firstDocumentDTO.imageURL), let safeData = try? Data(contentsOf: url), let image = UIImage(data: safeData) else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.moviePosterImageView.image = image
+                    self.moviePosterImageView.heightAnchor.constraint(equalTo: self.moviePosterImageView.widthAnchor, multiplier: image.size.height / image.size.width).isActive = true
+                }
+            case .failure(let error):
+                print("\(error.localizedDescription)")
             }
         }
-        
-        task.resume()
     }
     
     func setConstraints() {

@@ -15,4 +15,6 @@ struct URLs {
     
     static let DAILY_BOX_OFFICE = "boxoffice/searchDailyBoxOfficeList.json?key=\(apiKey)&targetDt="
     static let MOVIE_DETAIL = "movie/searchMovieInfo.json?key=\(apiKey)&movieCd="
+    
+    static let KAKAO_IMAGE_SEARCH = "https://dapi.kakao.com/v2/search/image"
 }
