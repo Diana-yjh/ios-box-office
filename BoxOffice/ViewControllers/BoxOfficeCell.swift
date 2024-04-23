@@ -11,6 +11,10 @@ class BoxOfficeCell: UICollectionViewListCell {
     static let IDENTIFIER = "boxOfficeCell"
     var cellMode: CellMode = .list
     
+    final let TITLE_1_FONT: UIFont = .preferredFont(forTextStyle: .title1)
+    final let TITLE_3_FONT: UIFont = .preferredFont(forTextStyle: .title3)
+    final let BODYFONT: UIFont = .preferredFont(forTextStyle: .body)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -36,21 +40,10 @@ class BoxOfficeCell: UICollectionViewListCell {
     private let leftStackView: UIStackView = {
         let stackView = UIStackView()
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
-        
-        return stackView
-    }()
-    
-    private let gridStackView: UIStackView = {
-        let stackView = UIStackView()
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .equalCentering
         
         return stackView
     }()
@@ -58,49 +51,67 @@ class BoxOfficeCell: UICollectionViewListCell {
     private let rightStackView: UIStackView = {
         let stackView = UIStackView()
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 2
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    let rankNumberLabel: UILabel = {
+    private let gridStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    lazy var rankNumberLabel: UILabel = {
         let label = UILabel()
         
+        label.font = TITLE_1_FONT
+        
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 30)
-        label.textColor = UIColor.black
         
         return label
     }()
     
-    let rankChangeLabel: UILabel = {
+    lazy var rankChangeLabel: UILabel = {
         let label = UILabel()
         
+        label.font = BODYFONT
+        
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16)
         
         return label
     }()
     
-    let movieTitleLabel: UILabel = {
+    lazy var movieTitleLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = TITLE_3_FONT
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         
+        label.adjustsFontForContentSizeCategory = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
-    let audienceLabel: UILabel = {
+    lazy var audienceLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = BODYFONT
         label.numberOfLines = 0
+        
+        label.adjustsFontForContentSizeCategory = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()

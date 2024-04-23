@@ -15,7 +15,12 @@ class MovieDetailViewController: UIViewController {
     static let trailingPaddingConstant: CGFloat = -20
     static let gapPaddingConstant: CGFloat = 10
     static let titleMultiplierConstant: CGFloat = 0.2
-    static let movieDetailLabelSize: CGFloat = 16
+    
+    final let BODYFONT: UIFont = .preferredFont(forTextStyle: .body)
+    final let TITLEFONT: UIFont = UIFont(descriptor:
+                                    UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withSymbolicTraits(.traitBold)!,
+                                   size: 0.0)
+    
     
     var movieInformation: MovieInformation? = nil
     
@@ -57,22 +62,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieDirectorTitleLabel: UILabel = {
+    lazy var movieDirectorTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "감독"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieDirectorValueLabel: UILabel = {
+    lazy var movieDirectorValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
@@ -90,22 +97,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieProductYearTitleLabel: UILabel = {
+    lazy var movieProductYearTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "제작연도"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieProductYearValueLabel: UILabel = {
+    lazy var movieProductYearValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
@@ -123,22 +132,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieOpenDateTitleLabel: UILabel = {
+    lazy var movieOpenDateTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "개봉일"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieOpenDateValueLabel: UILabel = {
+    lazy var movieOpenDateValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
@@ -156,22 +167,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieShowTimeTitleLabel: UILabel = {
+    lazy var movieShowTimeTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "상영시간"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieShowTimeValueLabel: UILabel = {
+    lazy var movieShowTimeValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
@@ -189,22 +202,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieWatchGradeNameTitleLabel: UILabel = {
+    lazy var movieWatchGradeNameTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "관람 등급"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieWatchGradeNameValueLabel: UILabel = {
+    lazy var movieWatchGradeNameValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
@@ -222,22 +237,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieNationNameTitleLabel: UILabel = {
+    lazy var movieNationNameTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "제작국가"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieNationNameValueLabel: UILabel = {
+    lazy var movieNationNameValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
@@ -255,22 +272,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieGenreTitleLabel: UILabel = {
+    lazy var movieGenreTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "장르"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieGenreValueLabel: UILabel = {
+    lazy var movieGenreValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
@@ -288,22 +307,24 @@ class MovieDetailViewController: UIViewController {
         return stackView
     }()
     
-    let movieActorTitleLabel: UILabel = {
+    lazy var movieActorTitleLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = TITLEFONT
         label.text = "배우"
         label.textAlignment = .center
         
         return label
     }()
     
-    let movieActorValueLabel: UILabel = {
+    lazy var movieActorValueLabel: UILabel = {
         let label = UILabel()
         
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: MovieDetailViewController.movieDetailLabelSize)
+        label.font = BODYFONT
         label.numberOfLines = 0
         
         return label
