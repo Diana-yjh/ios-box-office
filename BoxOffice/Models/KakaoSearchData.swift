@@ -8,19 +8,19 @@
 import Foundation
 
 struct KakaoSearchData: Codable {
-    let documents: [Document]
-    let meta: Meta
+    let documents: [Document]?
+    let meta: Meta?
 }
 
 struct Document: Codable {
-    let collection: String
-    let datetime: String
-    let displaySiteName: String
-    let docURL: String
-    let height: Int
-    let imageURL: String
-    let thumbnailURL: String
-    let width: Int
+    let collection: String?
+    let datetime: String?
+    let displaySiteName: String?
+    let docURL: String?
+    let height: Int?
+    let imageURL: String?
+    let thumbnailURL: String?
+    let width: Int?
 
     enum CodingKeys: String, CodingKey {
         case collection
@@ -35,13 +35,19 @@ struct Document: Codable {
 }
 
 struct Meta: Codable {
-    let isEnd: Bool
-    let pageableCount: Int
-    let totalCount: Int
+    let isEnd: Bool?
+    let pageableCount: Int?
+    let totalCount: Int?
 
     enum CodingKeys: String, CodingKey {
         case isEnd = "is_end"
         case pageableCount = "pageable_count"
         case totalCount = "total_count"
+    }
+}
+
+extension Document {
+    func toDTO() -> KakaoSearchDataDocumentDTO {
+        return KakaoSearchDataDocumentDTO(imageURL: imageURL ?? "")
     }
 }
