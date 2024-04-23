@@ -9,11 +9,12 @@ import UIKit
 
 class BoxOfficeCell: UICollectionViewListCell {
     static let IDENTIFIER = "boxOfficeCell"
-    var cellMode: CellMode = .list
     
-    final let TITLE_1_FONT: UIFont = .preferredFont(forTextStyle: .title1)
-    final let TITLE_3_FONT: UIFont = .preferredFont(forTextStyle: .title3)
-    final let BODYFONT: UIFont = .preferredFont(forTextStyle: .body)
+    final let TITLE_1_FONT: UIFont = FontConstants.TITLE1
+    final let TITLE_3_BOLD_FONT: UIFont = FontConstants.TITLE3_BOLD
+    final let BODY_FONT: UIFont = FontConstants.BODY
+    
+    var cellMode: CellMode = .list
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -83,7 +84,7 @@ class BoxOfficeCell: UICollectionViewListCell {
     lazy var rankChangeLabel: UILabel = {
         let label = UILabel()
         
-        label.font = BODYFONT
+        label.font = BODY_FONT
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +95,7 @@ class BoxOfficeCell: UICollectionViewListCell {
     lazy var movieTitleLabel: UILabel = {
         let label = UILabel()
         
-        label.font = TITLE_3_FONT
+        label.font = TITLE_3_BOLD_FONT
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         
@@ -107,7 +108,7 @@ class BoxOfficeCell: UICollectionViewListCell {
     lazy var audienceLabel: UILabel = {
         let label = UILabel()
         
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         label.adjustsFontForContentSizeCategory = true

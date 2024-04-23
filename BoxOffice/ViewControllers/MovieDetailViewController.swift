@@ -16,10 +16,8 @@ class MovieDetailViewController: UIViewController {
     static let gapPaddingConstant: CGFloat = 10
     static let titleMultiplierConstant: CGFloat = 0.2
     
-    final let BODYFONT: UIFont = .preferredFont(forTextStyle: .body)
-    final let TITLEFONT: UIFont = UIFont(descriptor:
-                                    UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withSymbolicTraits(.traitBold)!,
-                                   size: 0.0)
+    final let BODY_FONT: UIFont = FontConstants.BODY
+    final let BODY_BOLD_FONT: UIFont = FontConstants.BODY_BOLD
     
     
     var movieInformation: MovieInformation? = nil
@@ -67,7 +65,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "감독"
         label.textAlignment = .center
         
@@ -79,7 +77,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
@@ -102,7 +100,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "제작연도"
         label.textAlignment = .center
         
@@ -114,7 +112,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
@@ -137,7 +135,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "개봉일"
         label.textAlignment = .center
         
@@ -149,7 +147,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
@@ -172,7 +170,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "상영시간"
         label.textAlignment = .center
         
@@ -184,7 +182,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
@@ -207,7 +205,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "관람 등급"
         label.textAlignment = .center
         
@@ -219,7 +217,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
@@ -242,7 +240,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "제작국가"
         label.textAlignment = .center
         
@@ -254,7 +252,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
@@ -277,7 +275,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "장르"
         label.textAlignment = .center
         
@@ -289,7 +287,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
@@ -312,7 +310,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = TITLEFONT
+        label.font = BODY_BOLD_FONT
         label.text = "배우"
         label.textAlignment = .center
         
@@ -324,7 +322,7 @@ class MovieDetailViewController: UIViewController {
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = BODYFONT
+        label.font = BODY_FONT
         label.numberOfLines = 0
         
         return label
