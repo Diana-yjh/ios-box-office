@@ -66,6 +66,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "감독"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -101,6 +102,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "제작연도"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -136,6 +138,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "개봉일"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -171,6 +174,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "상영시간"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -206,6 +210,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "관람 등급"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -241,6 +246,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "제작국가"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -276,6 +282,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "장르"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -311,6 +318,7 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "배우"
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         return label
     }()
@@ -332,6 +340,7 @@ class MovieDetailViewController: UIViewController {
         setConstraints()
         configureUI()
         imageLoad()
+        setTitleLabelConstraints()
     }
     
     init(movieInformationDTO: MovieInformationDetailDTO) {
@@ -342,6 +351,22 @@ class MovieDetailViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setTitleLabelConstraints() {
+        let longestLabelSize = movieWatchGradeNameTitleLabel.intrinsicContentSize.width
+        
+        NSLayoutConstraint.activate([
+                movieDirectorTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+                movieProductYearTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+                movieOpenDateTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+                movieShowTimeTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+                movieWatchGradeNameTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+                movieNationNameTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+                movieGenreTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+                movieActorTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
+            ]
+        )
     }
     
     func imageLoad() {
@@ -429,50 +454,52 @@ class MovieDetailViewController: UIViewController {
             movieDirectorStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieDirectorStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieDirectorTitleLabel.widthAnchor.constraint(equalTo: movieDirectorStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+            
+//            preferredContentSize
+            //            movieDirectorTitleLabel.widthAnchor.constraint(equalTo: movieDirectorStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
             movieProductYearStackView.topAnchor.constraint(equalTo: movieDirectorStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
             movieProductYearStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieProductYearStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieProductYearTitleLabel.widthAnchor.constraint(equalTo: movieProductYearStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+//            movieProductYearTitleLabel.widthAnchor.constraint(equalTo: movieProductYearStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
             movieOpenDateStackView.topAnchor.constraint(equalTo: movieProductYearStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
             movieOpenDateStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieOpenDateStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieOpenDateTitleLabel.widthAnchor.constraint(equalTo: movieOpenDateStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+//            movieOpenDateTitleLabel.widthAnchor.constraint(equalTo: movieOpenDateStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
             movieShowTimeStackView.topAnchor.constraint(equalTo: movieOpenDateStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
             movieShowTimeStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieShowTimeStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieShowTimeTitleLabel.widthAnchor.constraint(equalTo: movieShowTimeStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+//            movieShowTimeTitleLabel.widthAnchor.constraint(equalTo: movieShowTimeStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
             movieWatchGradeNameStackView.topAnchor.constraint(equalTo: movieShowTimeStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
             movieWatchGradeNameStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieWatchGradeNameStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieWatchGradeNameTitleLabel.widthAnchor.constraint(equalTo: movieWatchGradeNameStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
-            
+//            movieWatchGradeNameTitleLabel.widthAnchor.constraint(equalTo: movieWatchGradeNameStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+
             movieNationNameStackView.topAnchor.constraint(equalTo: movieWatchGradeNameStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
             movieNationNameStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieNationNameStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieNationNameTitleLabel.widthAnchor.constraint(equalTo: movieNationNameStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+//            movieNationNameTitleLabel.widthAnchor.constraint(equalTo: movieNationNameStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
             movieGenreStackView.topAnchor.constraint(equalTo: movieNationNameStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
             movieGenreStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieGenreStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieGenreTitleLabel.widthAnchor.constraint(equalTo: movieGenreStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+//            movieGenreTitleLabel.widthAnchor.constraint(equalTo: movieGenreStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
             movieActorStackView.topAnchor.constraint(equalTo: movieGenreStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
             movieActorStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieActorStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             movieActorStackView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor, constant: MovieDetailViewController.bottomPaddingConstant),
             
-            movieActorTitleLabel.widthAnchor.constraint(equalTo: movieActorStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+//            movieActorTitleLabel.widthAnchor.constraint(equalTo: movieActorStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
         ])
     }
     
