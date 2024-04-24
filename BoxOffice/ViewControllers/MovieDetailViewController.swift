@@ -18,7 +18,7 @@ class MovieDetailViewController: UIViewController {
     final let BODY_FONT: UIFont = FontConstants.BODY
     final let BODY_BOLD_FONT: UIFont = FontConstants.BODY_BOLD
     
-    var movieInformation: MovieInformation? = nil
+    var movieInformationData: MovieInformationDetailDTO? = nil
     
     let detailScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -334,8 +334,8 @@ class MovieDetailViewController: UIViewController {
         imageLoad()
     }
     
-    init(movieInformation: MovieInformation) {
-        self.movieInformation = movieInformation
+    init(movieInformationDTO: MovieInformationDetailDTO) {
+        movieInformationData = movieInformationDTO
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -345,9 +345,11 @@ class MovieDetailViewController: UIViewController {
     }
     
     func imageLoad() {
-        guard let movieName = movieInformation?.movieInformationResult.movieInformation.movieName else {
+        guard let movieInformationData = movieInformationData else {
             return
         }
+        
+        let movieName = movieInformationData.movieName
         
         NetworkService().loadKakaoSearchAPI(searchType: KakaoSearchType.image, dataType: KakaoSearchData.self, searchOption: KakaoSearchOption(query: "\(movieName) 영화 포스터", page: 1, size: 1)) { result in
             switch result {
@@ -475,30 +477,19 @@ class MovieDetailViewController: UIViewController {
     }
     
     func configureUI() {
-        guard let movieInformation = movieInformation?.movieInformationResult.movieInformation else {
+        guard let movieInformationData = movieInformationData else {
             return
         }
         
-        self.navigationItem.title = movieInformation.movieName
+        navigationItem.title = movieInformationData.movieName
         
-        guard let movieInformationDirectors = movieInformation.directors,
-              let movieInformationProductYear = movieInformation.productYear,
-              let movieInformationOpenDate = movieInformation.openDate,
-              let movieInformationShowTime = movieInformation.showTime,
-              let movieInformationAudits = movieInformation.audits,
-              let movieInformationNations = movieInformation.nations,
-              let movieInformationGenres = movieInformation.genres,
-              let movieInformationActors = movieInformation.actors else {
-            return
-        }
-        
-        movieDirectorValueLabel.text = "\(movieInformationDirectors.map { $0.peopleName }.joined(separator: ", "))"
-        movieProductYearValueLabel.text = "\(movieInformationProductYear)"
-        movieOpenDateValueLabel.text = "\(movieInformationOpenDate)"
-        movieShowTimeValueLabel.text = "\(movieInformationShowTime)"
-        movieWatchGradeNameValueLabel.text = "\(movieInformationAudits.map { $0.watchGradeName }.joined(separator: ", "))"
-        movieNationNameValueLabel.text = "\(movieInformationNations.map { $0.nationName }.joined(separator: ", "))"
-        movieGenreValueLabel.text = "\(movieInformationGenres.map { $0.genreName }.joined(separator: ", "))"
-        movieActorValueLabel.text = "\(movieInformationActors.map { $0.peopleName }.joined(separator: ", "))"
+        movieDirectorValueLabel.text = "\(movieInformationData.directors.map { $0.peopleName }.joined(separator: ", "))"
+        movieProductYearValueLabel.text = "\(movieInformationData.productYear)"
+        movieOpenDateValueLabel.text = "\(movieInformationData.openDate)"
+        movieShowTimeValueLabel.text = "\(movieInformationData.showTime)"
+        movieWatchGradeNameValueLabel.text = "\(movieInformationData.audits.map { $0.watchGradeName }.joined(separator: ", "))"
+        movieNationNameValueLabel.text = "\(movieInformationData.nations.map { $0.nationName }.joined(separator: ", "))"
+        movieGenreValueLabel.text = "\(movieInformationData.genres.map { $0.genreName }.joined(separator: ", "))"
+        movieActorValueLabel.text = "\(movieInformationData.actors.map { $0.peopleName }.joined(separator: ", "))"
     }
 }

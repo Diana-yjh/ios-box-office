@@ -64,7 +64,7 @@ struct MovieInformationDetail: Codable {
 }
 
 struct Nation: Codable {
-    let nationName: String
+    let nationName: String?
     
     enum CodingKeys: String, CodingKey {
         case nationName = "nationNm"
@@ -72,7 +72,7 @@ struct Nation: Codable {
 }
 
 struct Genre: Codable {
-    let genreName: String
+    let genreName: String?
     
     enum CodingKeys: String, CodingKey {
         case genreName = "genreNm"
@@ -80,8 +80,8 @@ struct Genre: Codable {
 }
 
 struct Director: Codable {
-    let peopleName: String
-    let peopleEnglishName: String
+    let peopleName: String?
+    let peopleEnglishName: String?
     
     enum CodingKeys: String, CodingKey {
         case peopleName = "peopleNm"
@@ -90,10 +90,10 @@ struct Director: Codable {
 }
 
 struct Actor: Codable {
-    let peopleName: String
-    let peopleEnglishName: String
-    let cast: String
-    let englishCast: String
+    let peopleName: String?
+    let peopleEnglishName: String?
+    let cast: String?
+    let englishCast: String?
     
     enum CodingKeys: String, CodingKey {
         case peopleName = "peopleNm"
@@ -104,8 +104,8 @@ struct Actor: Codable {
 }
 
 struct ShowType: Codable {
-    let showTypeGroupName: String
-    let showTypeName: String
+    let showTypeGroupName: String?
+    let showTypeName: String?
     
     enum CodingKeys: String, CodingKey {
         case showTypeGroupName = "showTypeGroupNm"
@@ -114,10 +114,10 @@ struct ShowType: Codable {
 }
 
 struct Company: Codable {
-    let companyCode: String
-    let companyName: String
-    let companyEnglishName: String
-    let companyPartName: String
+    let companyCode: String?
+    let companyName: String?
+    let companyEnglishName: String?
+    let companyPartName: String?
 
     enum CodingKeys: String, CodingKey {
         case companyCode = "companyCd"
@@ -128,8 +128,8 @@ struct Company: Codable {
 }
 
 struct Audit: Codable {
-    let auditNumber: String
-    let watchGradeName: String
+    let auditNumber: String?
+    let watchGradeName: String?
     
     enum CodingKeys: String, CodingKey {
         case auditNumber = "auditNo"
@@ -138,13 +138,57 @@ struct Audit: Codable {
 }
 
 struct Staff: Codable {
-    let peopleName: String
-    let peopleEnglishName: String
-    let staffRoleName: String
+    let peopleName: String?
+    let peopleEnglishName: String?
+    let staffRoleName: String?
     
     enum CodingKeys: String, CodingKey {
         case peopleName = "peopleNm"
         case peopleEnglishName = "peopleNmEn"
         case staffRoleName = "staffRoleNm"
+    }
+}
+
+extension MovieInformationDetail {
+    func toDTO() -> MovieInformationDetailDTO {
+        return MovieInformationDetailDTO(movieName: movieName ?? "",
+                                         productYear: productYear ?? "",
+                                         showTime: showTime ?? "",
+                                         openDate: openDate ?? "",
+                                         nations: nations?.map { $0.toDTO() } ?? [NationDTO(nationName: "")],
+                                         genres: genres?.map { $0.toDTO() } ?? [GenreDTO(genreName: "")],
+                                         directors: directors?.map { $0.toDTO() } ?? [DirectorDTO(peopleName: "")],
+                                         actors: actors?.map { $0.toDTO() } ?? [ActorDTO(peopleName: "")],
+                                         audits: audits?.map { $0.toDTO() } ?? [AuditDTO(watchGradeName: "")])
+    }
+}
+
+extension Nation {
+    func toDTO() -> NationDTO {
+        return NationDTO(nationName: nationName ?? "")
+    }
+}
+
+extension Genre {
+    func toDTO() -> GenreDTO {
+        return GenreDTO(genreName: genreName ?? "")
+    }
+}
+
+extension Director {
+    func toDTO() -> DirectorDTO {
+        return DirectorDTO(peopleName: peopleName ?? "")
+    }
+}
+
+extension Actor {
+    func toDTO() -> ActorDTO {
+        return ActorDTO(peopleName: peopleName ?? "")
+    }
+}
+
+extension Audit {
+    func toDTO() -> AuditDTO {
+        return AuditDTO(watchGradeName: watchGradeName ?? "")
     }
 }

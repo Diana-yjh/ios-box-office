@@ -278,7 +278,7 @@ extension ViewController: UICollectionViewDelegate {
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
-                    let vc = MovieDetailViewController(movieInformation: data)
+                    let vc = MovieDetailViewController(movieInformationDTO: data.movieInformationResult.movieInformation.toDTO())
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             case .failure(let error):
