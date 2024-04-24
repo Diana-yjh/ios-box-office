@@ -42,29 +42,7 @@ class BoxOfficeCell: UICollectionViewListCell {
         let stackView = UIStackView()
         
         stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
-    
-    private let rightStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.axis = .vertical
-        stackView.spacing = 2
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
-    
-    private let gridStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .equalCentering
+        stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -74,6 +52,7 @@ class BoxOfficeCell: UICollectionViewListCell {
         let label = UILabel()
         
         label.font = TITLE_1_FONT
+        label.textAlignment = .center
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -85,11 +64,24 @@ class BoxOfficeCell: UICollectionViewListCell {
         let label = UILabel()
         
         label.font = BODY_FONT
+        label.textAlignment = .center
         
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
+    }()
+    
+    
+    private let rightStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = 2
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
     }()
     
     lazy var movieTitleLabel: UILabel = {
@@ -117,6 +109,17 @@ class BoxOfficeCell: UICollectionViewListCell {
         return label
     }()
     
+    private let gridStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalCentering
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
     override func updateConstraints() {
       super.updateConstraints()
 
@@ -131,28 +134,50 @@ class BoxOfficeCell: UICollectionViewListCell {
             }
             
             [rankNumberLabel, rankChangeLabel].forEach {
-                self.leftStackView.addArrangedSubview($0)
+                self.leftStackView.addSubview($0)
             }
             
             [movieTitleLabel, audienceLabel].forEach {
-                self.rightStackView.addArrangedSubview($0)
+                self.rightStackView.addSubview($0)
             }
             
             contentView.layer.borderWidth = 0
             
             NSLayoutConstraint.activate([
-                contentView.heightAnchor.constraint(equalToConstant: 80),
-
-                leftStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
-                leftStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                leftStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
                 leftStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-
-                rightStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                leftStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                
+                rankNumberLabel.topAnchor.constraint(equalTo: leftStackView.topAnchor),
+                rankNumberLabel.leadingAnchor.constraint(equalTo: leftStackView.leadingAnchor),
+                rankNumberLabel.bottomAnchor.constraint(equalTo: rankChangeLabel.topAnchor),
+                rankNumberLabel.trailingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
+                
+                rankChangeLabel.topAnchor.constraint(equalTo: rankNumberLabel.bottomAnchor),
+                rankChangeLabel.leadingAnchor.constraint(equalTo: leftStackView.leadingAnchor),
+                rankChangeLabel.trailingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
+                rankChangeLabel.bottomAnchor.constraint(equalTo: leftStackView.bottomAnchor),
+                
+                rightStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
                 rightStackView.leadingAnchor.constraint(equalTo: leftStackView.trailingAnchor),
-                rightStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+                rightStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+                rightStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                
+                movieTitleLabel.topAnchor.constraint(equalTo: rightStackView.topAnchor),
+                movieTitleLabel.leadingAnchor.constraint(equalTo: rightStackView.leadingAnchor),
+                movieTitleLabel.bottomAnchor.constraint(equalTo: audienceLabel.topAnchor),
+                movieTitleLabel.trailingAnchor.constraint(equalTo: rightStackView.trailingAnchor),
+                
+                audienceLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor),
+                audienceLabel.leadingAnchor.constraint(equalTo: rightStackView.leadingAnchor),
+                audienceLabel.bottomAnchor.constraint(equalTo: rightStackView.bottomAnchor),
+                audienceLabel.trailingAnchor.constraint(equalTo: rightStackView.trailingAnchor)
             ])
         case .icon:
-            print("추가해주세요")
+            [leftStackView, rightStackView].forEach {
+                $0.removeFromSuperview()
+            }
+            
             [gridStackView].forEach {
                 self.contentView.addSubview($0)
             }
@@ -164,12 +189,11 @@ class BoxOfficeCell: UICollectionViewListCell {
             contentView.layer.borderWidth = 1
             
             NSLayoutConstraint.activate([
-                contentView.heightAnchor.constraint(equalToConstant: 80),
-                
-                gridStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-                gridStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+                gridStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                gridStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
                 gridStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                gridStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+                gridStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                
             ])
         }
     }
