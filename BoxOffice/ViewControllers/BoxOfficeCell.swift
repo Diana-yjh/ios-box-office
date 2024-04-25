@@ -88,7 +88,6 @@ class BoxOfficeCell: UICollectionViewListCell {
         let label = UILabel()
         
         label.font = TITLE_3_BOLD_FONT
-        label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         
         label.adjustsFontForContentSizeCategory = true
@@ -109,17 +108,6 @@ class BoxOfficeCell: UICollectionViewListCell {
         return label
     }()
     
-    private let gridStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .equalCentering
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
-    
     override func updateConstraints() {
       super.updateConstraints()
 
@@ -129,6 +117,11 @@ class BoxOfficeCell: UICollectionViewListCell {
     func configure() {
         switch cellMode {
         case .list:
+            [rankNumberLabel, movieTitleLabel, rankChangeLabel, audienceLabel].forEach {
+                $0.removeFromSuperview()
+                $0.numberOfLines = 0
+            }
+            
             [leftStackView, rightStackView].forEach {
                 self.contentView.addSubview($0)
             }
@@ -178,22 +171,29 @@ class BoxOfficeCell: UICollectionViewListCell {
                 $0.removeFromSuperview()
             }
             
-            [gridStackView].forEach {
-                self.contentView.addSubview($0)
-            }
-            
             [rankNumberLabel, movieTitleLabel, rankChangeLabel, audienceLabel].forEach {
-                self.gridStackView.addArrangedSubview($0)
+                $0.numberOfLines = 0
+                $0.textAlignment = .center
+                self.contentView.addSubview($0)
             }
             
             contentView.layer.borderWidth = 1
             
             NSLayoutConstraint.activate([
-                gridStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                gridStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                gridStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                gridStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                rankNumberLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+                movieTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+                rankChangeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+                audienceLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
                 
+                rankNumberLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25),
+                movieTitleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25),
+                rankChangeLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25),
+                audienceLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25),
+                
+                rankNumberLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+                movieTitleLabel.topAnchor.constraint(equalTo: rankNumberLabel.bottomAnchor),
+                rankChangeLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor),
+                audienceLabel.topAnchor.constraint(equalTo: rankChangeLabel.bottomAnchor)
             ])
         }
     }
