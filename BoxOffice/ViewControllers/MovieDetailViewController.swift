@@ -1,3 +1,4 @@
+
 //
 //  MovieDetailViewController.swift
 //  BoxOffice
@@ -66,7 +67,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "감독"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -102,7 +102,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "제작연도"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -138,7 +137,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "개봉일"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -174,7 +172,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "상영시간"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -210,7 +207,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "관람 등급"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -246,7 +242,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "제작국가"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -282,7 +277,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "장르"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -318,7 +312,6 @@ class MovieDetailViewController: UIViewController {
         label.font = BODY_BOLD_FONT
         label.text = "배우"
         label.textAlignment = .center
-        label.numberOfLines = 0
         
         return label
     }()
@@ -337,10 +330,9 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setConstraints()
         configureUI()
         imageLoad()
-        setTitleLabelConstraints()
+        setConstraints()
     }
     
     init(movieInformationDTO: MovieInformationDetailDTO) {
@@ -351,22 +343,6 @@ class MovieDetailViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setTitleLabelConstraints() {
-        let longestLabelSize = movieWatchGradeNameTitleLabel.intrinsicContentSize.width
-        
-        NSLayoutConstraint.activate([
-                movieDirectorTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-                movieProductYearTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-                movieOpenDateTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-                movieShowTimeTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-                movieWatchGradeNameTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-                movieNationNameTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-                movieGenreTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-                movieActorTitleLabel.widthAnchor.constraint(equalToConstant: longestLabelSize),
-            ]
-        )
     }
     
     func imageLoad() {
@@ -401,35 +377,34 @@ class MovieDetailViewController: UIViewController {
     
     func setConstraints() {
         view.addSubview(detailScrollView)
+        
         detailScrollView.addSubview(detailContentView)
         
-        [moviePosterImageView, movieDirectorStackView, movieProductYearStackView, movieOpenDateStackView, movieShowTimeStackView, movieWatchGradeNameStackView, movieNationNameStackView, movieGenreStackView, movieActorStackView].forEach {
-            detailContentView.addSubview($0)
-        }
+        detailScrollView.addSubview(moviePosterImageView)
         
-        movieDirectorStackView.addArrangedSubview(movieDirectorTitleLabel)
-        movieDirectorStackView.addArrangedSubview(movieDirectorValueLabel)
+        detailContentView.addSubview(movieDirectorTitleLabel)
+        detailContentView.addSubview(movieDirectorValueLabel)
         
-        movieProductYearStackView.addArrangedSubview(movieProductYearTitleLabel)
-        movieProductYearStackView.addArrangedSubview(movieProductYearValueLabel)
+        detailContentView.addSubview(movieProductYearTitleLabel)
+        detailContentView.addSubview(movieProductYearValueLabel)
         
-        movieOpenDateStackView.addArrangedSubview(movieOpenDateTitleLabel)
-        movieOpenDateStackView.addArrangedSubview(movieOpenDateValueLabel)
+        detailContentView.addSubview(movieOpenDateTitleLabel)
+        detailContentView.addSubview(movieOpenDateValueLabel)
         
-        movieShowTimeStackView.addArrangedSubview(movieShowTimeTitleLabel)
-        movieShowTimeStackView.addArrangedSubview(movieShowTimeValueLabel)
+        detailContentView.addSubview(movieShowTimeTitleLabel)
+        detailContentView.addSubview(movieShowTimeValueLabel)
         
-        movieWatchGradeNameStackView.addArrangedSubview(movieWatchGradeNameTitleLabel)
-        movieWatchGradeNameStackView.addArrangedSubview(movieWatchGradeNameValueLabel)
+        detailContentView.addSubview(movieWatchGradeNameTitleLabel)
+        detailContentView.addSubview(movieWatchGradeNameValueLabel)
         
-        movieNationNameStackView.addArrangedSubview(movieNationNameTitleLabel)
-        movieNationNameStackView.addArrangedSubview(movieNationNameValueLabel)
+        detailContentView.addSubview(movieNationNameTitleLabel)
+        detailContentView.addSubview(movieNationNameValueLabel)
         
-        movieGenreStackView.addArrangedSubview(movieGenreTitleLabel)
-        movieGenreStackView.addArrangedSubview(movieGenreValueLabel)
+        detailContentView.addSubview(movieGenreTitleLabel)
+        detailContentView.addSubview(movieGenreValueLabel)
         
-        movieActorStackView.addArrangedSubview(movieActorTitleLabel)
-        movieActorStackView.addArrangedSubview(movieActorValueLabel)
+        detailContentView.addSubview(movieActorTitleLabel)
+        detailContentView.addSubview(movieActorValueLabel)
         
         let safeArea = view.safeAreaLayoutGuide
         
@@ -450,56 +425,82 @@ class MovieDetailViewController: UIViewController {
             moviePosterImageView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             moviePosterImageView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieDirectorStackView.topAnchor.constraint(equalTo: moviePosterImageView.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
-            movieDirectorStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieDirectorStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
+            movieDirectorTitleLabel.topAnchor.constraint(equalTo: moviePosterImageView.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieDirectorTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            
+            movieProductYearTitleLabel.topAnchor.constraint(equalTo: movieDirectorTitleLabel.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieProductYearTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            
+            movieOpenDateTitleLabel.topAnchor.constraint(equalTo: movieProductYearTitleLabel.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieOpenDateTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            
+            movieShowTimeTitleLabel.topAnchor.constraint(equalTo: movieOpenDateTitleLabel.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieShowTimeTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            
+            movieWatchGradeNameTitleLabel.topAnchor.constraint(equalTo: movieShowTimeTitleLabel.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieWatchGradeNameTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            
+            movieNationNameTitleLabel.topAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieNationNameTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            
+            movieGenreTitleLabel.topAnchor.constraint(equalTo: movieNationNameTitleLabel.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieGenreTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            
+            movieActorTitleLabel.topAnchor.constraint(equalTo: movieGenreTitleLabel.bottomAnchor, constant: MovieDetailViewController.topPaddingConstant),
+            movieActorTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieActorTitleLabel.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor, constant: MovieDetailViewController.bottomPaddingConstant),
             
             
-//            preferredContentSize
-            //            movieDirectorTitleLabel.widthAnchor.constraint(equalTo: movieDirectorStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
-            movieProductYearStackView.topAnchor.constraint(equalTo: movieDirectorStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
-            movieProductYearStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieProductYearStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
+            movieDirectorTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
+            movieProductYearTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
+            movieOpenDateTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
+            movieShowTimeTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
+            movieNationNameTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
+            movieGenreTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
+            movieActorTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
             
-//            movieProductYearTitleLabel.widthAnchor.constraint(equalTo: movieProductYearStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
             
-            movieOpenDateStackView.topAnchor.constraint(equalTo: movieProductYearStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
-            movieOpenDateStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieOpenDateStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-//            movieOpenDateTitleLabel.widthAnchor.constraint(equalTo: movieOpenDateStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+            movieDirectorValueLabel.topAnchor.constraint(equalTo: movieDirectorTitleLabel.topAnchor),
+            movieDirectorValueLabel.leadingAnchor.constraint(equalTo: movieDirectorTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieDirectorValueLabel.bottomAnchor.constraint(equalTo: movieDirectorTitleLabel.bottomAnchor),
+            movieDirectorValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieShowTimeStackView.topAnchor.constraint(equalTo: movieOpenDateStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
-            movieShowTimeStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieShowTimeStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
+            movieProductYearValueLabel.topAnchor.constraint(equalTo: movieProductYearTitleLabel.topAnchor),
+            movieProductYearValueLabel.leadingAnchor.constraint(equalTo: movieProductYearTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieProductYearValueLabel.bottomAnchor.constraint(equalTo: movieProductYearTitleLabel.bottomAnchor),
+            movieProductYearValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-//            movieShowTimeTitleLabel.widthAnchor.constraint(equalTo: movieShowTimeStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+            movieOpenDateValueLabel.topAnchor.constraint(equalTo: movieOpenDateTitleLabel.topAnchor),
+            movieOpenDateValueLabel.leadingAnchor.constraint(equalTo: movieOpenDateTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieOpenDateValueLabel.bottomAnchor.constraint(equalTo: movieOpenDateTitleLabel.bottomAnchor),
+            movieOpenDateValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieWatchGradeNameStackView.topAnchor.constraint(equalTo: movieShowTimeStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
-            movieWatchGradeNameStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieWatchGradeNameStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
+            movieShowTimeValueLabel.topAnchor.constraint(equalTo: movieShowTimeTitleLabel.topAnchor),
+            movieShowTimeValueLabel.leadingAnchor.constraint(equalTo: movieShowTimeTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieShowTimeValueLabel.bottomAnchor.constraint(equalTo: movieShowTimeTitleLabel.bottomAnchor),
+            movieShowTimeValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-//            movieWatchGradeNameTitleLabel.widthAnchor.constraint(equalTo: movieWatchGradeNameStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
-
-            movieNationNameStackView.topAnchor.constraint(equalTo: movieWatchGradeNameStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
-            movieNationNameStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieNationNameStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
+            movieNationNameValueLabel.topAnchor.constraint(equalTo: movieNationNameTitleLabel.topAnchor),
+            movieNationNameValueLabel.leadingAnchor.constraint(equalTo: movieNationNameTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieNationNameValueLabel.bottomAnchor.constraint(equalTo: movieNationNameTitleLabel.bottomAnchor),
+            movieNationNameValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-//            movieNationNameTitleLabel.widthAnchor.constraint(equalTo: movieNationNameStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+            movieWatchGradeNameValueLabel.topAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.topAnchor),
+            movieWatchGradeNameValueLabel.leadingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieWatchGradeNameValueLabel.bottomAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.bottomAnchor),
+            movieWatchGradeNameValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-            movieGenreStackView.topAnchor.constraint(equalTo: movieNationNameStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
-            movieGenreStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieGenreStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
+            movieGenreValueLabel.topAnchor.constraint(equalTo: movieGenreTitleLabel.topAnchor),
+            movieGenreValueLabel.leadingAnchor.constraint(equalTo: movieGenreTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieGenreValueLabel.bottomAnchor.constraint(equalTo: movieGenreTitleLabel.bottomAnchor),
+            movieGenreValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
             
-//            movieGenreTitleLabel.widthAnchor.constraint(equalTo: movieGenreStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
-            
-            movieActorStackView.topAnchor.constraint(equalTo: movieGenreStackView.bottomAnchor, constant: MovieDetailViewController.gapPaddingConstant),
-            movieActorStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
-            movieActorStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
-            movieActorStackView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor, constant: MovieDetailViewController.bottomPaddingConstant),
-            
-//            movieActorTitleLabel.widthAnchor.constraint(equalTo: movieActorStackView.widthAnchor, multiplier: MovieDetailViewController.titleMultiplierConstant),
+            movieActorValueLabel.topAnchor.constraint(equalTo: movieActorTitleLabel.topAnchor),
+            movieActorValueLabel.leadingAnchor.constraint(equalTo: movieActorTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
+            movieActorValueLabel.bottomAnchor.constraint(equalTo: movieActorTitleLabel.bottomAnchor),
+            movieActorValueLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: MovieDetailViewController.trailingPaddingConstant),
         ])
     }
     
