@@ -270,9 +270,10 @@ extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = self.boxOfficeData[indexPath.row]
         
-        guard let url = URL(string: URLs.PREFIX + URLs.MOVIE_DETAIL + "\(data.movieRepresentCode)") else {
-            return
-        }
+        let urlString = URLs.PREFIX + URLs.MOVIE_DETAIL + "\(data.movieRepresentCode)"
+        guard let encodedUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        
+        guard let url = URL(string: encodedUrlString) else { return }
         
         NetworkService().startLoad(url: url, type: MovieInformation.self) { result in
             switch result {
