@@ -29,8 +29,9 @@ struct KakaoSearchOption {
 
 class NetworkService {
     func loadKakaoSearchAPI<T: Decodable>(searchType: KakaoSearchType, dataType: T.Type, searchOption: KakaoSearchOption, completion: @escaping (_ result: Result<T, CustomError>) -> ()) {
+    func getURL(searchType: KakaoSearchType, searchOption: KakaoSearchOption) -> URL? {
         guard var urlComponents = URLComponents(string: searchType.urlString) else {
-            return
+            return nil
         }
         
         urlComponents.queryItems = [
@@ -40,9 +41,17 @@ class NetworkService {
             URLQueryItem(name: "size", value: String(searchOption.page ?? 1)),
         ]
         
-        urlComponents.percentEncodedQuery = urlComponents.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-
         guard let url = urlComponents.url else {
+            return nil
+        }
+        
+        return url
+    }
+    
+    func loadKakaoSearchAPI<T: Decodable>(searchType: KakaoSearchType, dataType: T.Type, searchOption: KakaoSearchOption, completion: @escaping (_ result: Result<T, CustomError>) -> ()) {
+        
+        guard let url = getURL(searchType: searchType, searchOption: searchOption) else {
+            completion(.failure(.invalidURL))
             return
         }
         

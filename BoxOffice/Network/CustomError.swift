@@ -18,4 +18,6 @@ enum CustomError: Error {
     case httpResponseError
     case statusCodeError(Int)
     case emptyData
+    
+    case invalidURL
 }
