@@ -11,7 +11,10 @@ enum KakaoSearchType {
     case image
     
     var urlString: String {
-        return "\(URLs.KAKAO_IMAGE_SEARCH)"
+        switch self{
+        case .image:
+            return "\(URLs.KAKAO_IMAGE_SEARCH)"
+        }
     }
 }
 
