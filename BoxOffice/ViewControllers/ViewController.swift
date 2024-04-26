@@ -112,7 +112,8 @@ class ViewController: UIViewController {
     
     private func getBoxOfficeData(completion: @escaping() -> ()) {
         guard let url = URL(string: URLs.PREFIX + URLs.DAILY_BOX_OFFICE + DateFormatter.fetchYesterdayDate(dateFormatType: .api, dateComponents: self.selectedDateComponents)) else { return }
-        NetworkService().startLoad(url: url, type: BoxOffice.self) { result in
+        
+        NetworkService.shared.startLoad(url: url, type: BoxOffice.self) { result in
             switch result {
             case .success(let data):
                 guard let boxOfficeData = data.boxOfficeResults?.boxOffices else { 
@@ -137,7 +138,6 @@ class ViewController: UIViewController {
     private func createCollectionViewIconLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.5))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
@@ -275,7 +275,7 @@ extension ViewController: UICollectionViewDelegate {
         
         guard let url = URL(string: encodedUrlString) else { return }
         
-        NetworkService().startLoad(url: url, type: MovieInformation.self) { result in
+        NetworkService.shared.startLoad(url: url, type: MovieInformation.self) { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {

@@ -352,7 +352,7 @@ class MovieDetailViewController: UIViewController {
         
         let movieName = movieInformationData.movieName
         
-        NetworkService().loadKakaoSearchAPI(searchType: KakaoSearchType.image, dataType: KakaoSearchData.self, searchOption: KakaoSearchOption(query: "\(movieName) 영화 포스터", page: 1, size: 1)) { result in
+        NetworkService.shared.loadKakaoSearchAPI(searchType: KakaoSearchType.image, dataType: KakaoSearchData.self, searchOption: KakaoSearchOption(query: "\(movieName) 영화 포스터", page: 1, size: 1)) { result in
             switch result {
             case .success(let data):
                 guard let firstDocument = data.documents?.first else {
@@ -450,8 +450,6 @@ class MovieDetailViewController: UIViewController {
             movieActorTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),
             movieActorTitleLabel.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor, constant: MovieDetailViewController.bottomPaddingConstant),
             
-            
-            
             movieDirectorTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
             movieProductYearTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
             movieOpenDateTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
@@ -459,8 +457,6 @@ class MovieDetailViewController: UIViewController {
             movieNationNameTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
             movieGenreTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
             movieActorTitleLabel.trailingAnchor.constraint(equalTo: movieWatchGradeNameTitleLabel.trailingAnchor),
-            
-            
             
             movieDirectorValueLabel.topAnchor.constraint(equalTo: movieDirectorTitleLabel.topAnchor),
             movieDirectorValueLabel.leadingAnchor.constraint(equalTo: movieDirectorTitleLabel.trailingAnchor, constant: MovieDetailViewController.leadingPaddingConstant),

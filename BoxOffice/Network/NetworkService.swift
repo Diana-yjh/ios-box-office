@@ -27,8 +27,11 @@ struct KakaoSearchOption {
     }
 }
 
-class NetworkService {
-    func loadKakaoSearchAPI<T: Decodable>(searchType: KakaoSearchType, dataType: T.Type, searchOption: KakaoSearchOption, completion: @escaping (_ result: Result<T, CustomError>) -> ()) {
+final class NetworkService {
+    static let shared = NetworkService()
+    
+    private init() { }
+    
     func getURL(searchType: KakaoSearchType, searchOption: KakaoSearchOption) -> URL? {
         guard var urlComponents = URLComponents(string: searchType.urlString) else {
             return nil
