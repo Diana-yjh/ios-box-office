@@ -122,6 +122,11 @@ class BoxOfficeCell: UICollectionViewListCell {
                 $0.numberOfLines = 0
             }
             
+            rankNumberLabel.textAlignment = .center
+            rankChangeLabel.textAlignment = .center
+            movieTitleLabel.textAlignment = .left
+            audienceLabel.textAlignment = .left
+            
             [leftStackView, rightStackView].forEach {
                 self.contentView.addSubview($0)
             }
