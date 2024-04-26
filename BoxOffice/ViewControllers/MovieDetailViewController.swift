@@ -509,7 +509,7 @@ class MovieDetailViewController: UIViewController {
         
         movieDirectorValueLabel.text = "\(movieInformationData.directors.map { $0.peopleName }.joined(separator: ", "))"
         movieProductYearValueLabel.text = "\(movieInformationData.productYear)"
-        movieOpenDateValueLabel.text = "\(movieInformationData.openDate)"
+        movieOpenDateValueLabel.text = "\(movieInformationData.openDate.formatDate())"
         movieShowTimeValueLabel.text = "\(movieInformationData.showTime)"
         movieWatchGradeNameValueLabel.text = "\(movieInformationData.audits.map { $0.watchGradeName }.joined(separator: ", "))"
         movieNationNameValueLabel.text = "\(movieInformationData.nations.map { $0.nationName }.joined(separator: ", "))"
