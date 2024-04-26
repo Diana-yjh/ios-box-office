@@ -49,16 +49,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 감독
-    let movieDirectorStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieDirectorTitleLabel: UILabel = {
         let label = UILabel()
         
@@ -83,17 +73,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 제작연도
-    
-    let movieProductYearStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieProductYearTitleLabel: UILabel = {
         let label = UILabel()
         
@@ -118,17 +97,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 개봉일
-    
-    let movieOpenDateStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieOpenDateTitleLabel: UILabel = {
         let label = UILabel()
         
@@ -153,17 +121,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 상영시간
-    
-    let movieShowTimeStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieShowTimeTitleLabel: UILabel = {
         let label = UILabel()
         
@@ -188,17 +145,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 관람 등급
-    
-    let movieWatchGradeNameStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieWatchGradeNameTitleLabel: UILabel = {
         let label = UILabel()
         
@@ -223,17 +169,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 제작국가
-    
-    let movieNationNameStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieNationNameTitleLabel: UILabel = {
         let label = UILabel()
         
@@ -258,17 +193,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 장르
-    
-    let movieGenreStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieGenreTitleLabel: UILabel = {
         let label = UILabel()
         
@@ -293,17 +217,6 @@ class MovieDetailViewController: UIViewController {
     }()
     
     // MARK: - 배우
-    
-    let movieActorStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        
-        return stackView
-    }()
-    
     lazy var movieActorTitleLabel: UILabel = {
         let label = UILabel()
         
